@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(RustPresentationApp());
@@ -34,7 +35,7 @@ class PresentationScreen extends StatefulWidget {
 class _PresentationScreenState extends State<PresentationScreen> {
   PageController _pageController = PageController();
   int _currentSlide = 0;
-  final int _totalSlides = 15;
+  final int _totalSlides = 16;
 
   // Rust-inspired color palette
   final Color rustOrange = Color(0xFFDE3C00);
@@ -76,6 +77,7 @@ class _PresentationScreenState extends State<PresentationScreen> {
                 _buildGamingSlide(),
                 _buildRoboticsSlide(),
                 _buildWrapUpSlide(),
+                _buildSetupGuideSlide(),
               ],
             ),
             // Top navigation
@@ -2060,4 +2062,208 @@ Widget _buildWhatIsEmbeddedSlide() {
       ),
     );
   }
+
+  Widget _buildSetupGuideSlide() {
+  return _buildResponsiveSlideTemplate(
+    title: 'WORKSHOP SETUP GUIDE',
+    children: [
+      LayoutBuilder(
+        builder: (context, constraints) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // VS Code Installation
+              _buildSetupStep(
+                Icons.code,
+                '1. Install VS Code',
+                'Download from:',
+                'https://code.visualstudio.com/',
+                rustOrange,
+                'https://code.visualstudio.com/',
+              ),
+              SizedBox(height: 20),
+              
+              // Rust Installation
+              _buildSetupStep(
+                Icons.download,
+                '2. Install Rust (via rustup)',
+                'Get it from:',
+                'https://www.rust-lang.org/tools/install',
+                Color(0xFF2196F3),
+                'https://www.rust-lang.org/tools/install',
+              ),
+              SizedBox(height: 20),
+              
+              // Learning Resources
+              Column(
+                children: [
+                  _buildSetupStep(
+                    Icons.school,
+                    '3. Learn Rust Basics',
+                    'Watch: 100 Seconds of Rust',
+                    'https://www.youtube.com/watch?v=5C_HPTJg5ek',
+                    Color(0xFF4CAF50),
+                    'https://www.youtube.com/watch?v=5C_HPTJg5ek',
+                  ),
+                  SizedBox(height: 8),
+                  _buildSetupStep(
+                    Icons.video_library,
+                    '',
+                    'Watch: Rust Installation Walkthrough',
+                    'https://www.youtube.com/watch?v=bc18e5nnChE',
+                    Color(0xFF4CAF50),
+                    'https://www.youtube.com/watch?v=bc18e5nnChE',
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              
+              // Workshop Preparation
+              Container(
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: lightOrange,
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(color: rustOrange, width: 2),
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.checklist, color: rustOrange),
+                        SizedBox(width: 8),
+                        Text(
+                          'WORKSHOP PREPARATION',
+                          style: TextStyle(
+                            color: rustOrange,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 12),
+                    _buildPreparationItem('VS Code installed and working'),
+                    _buildPreparationItem('Rust verified with rustc --version'),
+                    _buildPreparationItem('Rust Analyzer extension installed'),
+                    _buildPreparationItem('Bring laptop charger!'),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20),
+              
+              // Ready message
+              Container(
+                padding: EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Color(0xFFE8F5E8),
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(color: Color(0xFF4CAF50), width: 2),
+                ),
+                child: Text(
+                  '✅ Once complete, you\'ll be ready to write, compile, and run Rust on embedded boards!',
+                  style: TextStyle(
+                    color: Color(0xFF2E7D32),
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    ],
+  );
+}
+
+// Helper method for setup steps with clickable links
+Widget _buildSetupStep(IconData icon, String title, String description, String urlText, Color color, String url) {
+  return Container(
+    padding: EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: color.withOpacity(0.1),
+      borderRadius: BorderRadius.circular(15),
+      border: Border.all(color: color, width: 2),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (title.isNotEmpty)
+          Row(
+            children: [
+              Icon(icon, color: color, size: 24),
+              SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    color: color,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        if (title.isNotEmpty) SizedBox(height: 8),
+        Text(
+          description,
+          style: TextStyle(
+            color: darkGray,
+            fontSize: 12,
+          ),
+        ),
+        SizedBox(height: 4),
+        GestureDetector(
+          onTap: () async {
+            if (await canLaunch(url)) {
+              await launch(url);
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Could not launch $url'),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            }
+          },
+          child: Text(
+            urlText,
+            style: TextStyle(
+              color: Colors.blue,
+              fontSize: 12,
+              decoration: TextDecoration.underline,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+// Helper method for preparation items
+Widget _buildPreparationItem(String text) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 4),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(Icons.circle, size: 8, color: rustOrange),
+        SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            text,
+            style: TextStyle(
+              color: darkGray,
+              fontSize: 12,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
 }
