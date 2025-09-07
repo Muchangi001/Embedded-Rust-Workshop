@@ -891,11 +891,11 @@ Widget _buildWhatIsEmbeddedSlide() {
                   spacing: 15,
                   runSpacing: 15,
                   children: [
+                    _buildEcosystemCard('Robotics', 'ROS2, ESP HAL, Embassy', rustOrange, Icons.smart_toy),
                     _buildEcosystemCard('Web Backend', 'Axum, Warp, Actix', Color(0xFF4CAF50), Icons.cloud),
                     _buildEcosystemCard('Game Development', 'Bevy Engine', Color(0xFF9C27B0), Icons.sports_esports),
                     _buildEcosystemCard('Desktop Apps', 'Tauri, Egui', Color(0xFF2196F3), Icons.desktop_windows),
                     _buildEcosystemCard('Mobile Apps', 'Tauri Mobile', Color(0xFF3F51B5), Icons.phone_android),
-                    _buildEcosystemCard('Robotics', 'ROS2, Embassy', rustOrange, Icons.smart_toy),
                     _buildEcosystemCard('Frontend', 'Leptos, Yew', Color(0xFFF44336), Icons.web),
                   ],
                 ),
