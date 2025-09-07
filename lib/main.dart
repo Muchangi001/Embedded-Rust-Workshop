@@ -35,7 +35,7 @@ class PresentationScreen extends StatefulWidget {
 class _PresentationScreenState extends State<PresentationScreen> {
   PageController _pageController = PageController();
   int _currentSlide = 0;
-  final int _totalSlides = 16;
+  final int _totalSlides = 18;
 
   // Rust-inspired color palette
   final Color rustOrange = Color(0xFFDE3C00);
@@ -78,6 +78,8 @@ class _PresentationScreenState extends State<PresentationScreen> {
                 _buildRoboticsSlide(),
                 _buildWrapUpSlide(),
                 _buildSetupGuideSlide(),
+                _buildRustCheatSheetSlide(),
+                _buildEmbeddedRustCheatSheetSlide()
               ],
             ),
             // Top navigation
@@ -2259,6 +2261,727 @@ Widget _buildPreparationItem(String text) {
             style: TextStyle(
               color: darkGray,
               fontSize: 12,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+  Widget _buildRustCheatSheetSlide() {
+  return _buildResponsiveSlideTemplate(
+    title: 'RUST CHEAT SHEET',
+    children: [
+      LayoutBuilder(
+        builder: (context, constraints) {
+          bool isWide = constraints.maxWidth > 1000;
+          
+          if (isWide) {
+            return Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Left Column
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildCheatSheetSection('VARIABLES', [
+                        'let x = 5;           // immutable',
+                        'let mut y = 10;      // mutable',
+                        'const PI: f64 = 3.14; // constant',
+                      ]),
+                      SizedBox(height: 12),
+                      _buildCheatSheetSection('SCALAR TYPES', [
+                        'let age: i32 = 25;     // integers - i8, i16, i32, i64, i128, u8, ..',
+                        'let pi: f64 = 3.14159; // floats - f32, f64',
+                        'let active: bool = true; // boolean - bool',
+                        'let letter: char = \'A\'; // character - char',
+                      ]),
+                      SizedBox(height: 12),
+                      _buildCheatSheetSection('COMPOUND TYPES', [
+                        '// Tuples',
+                        'let point: (i32, i32) = (10, 20);',
+                        'let x = point.0; // access by index',
+                        '',
+                        '// Arrays',
+                        'let numbers: [i32; 3] = [1, 2, 3];',
+                        'let first = numbers[0]; // also accessed by index',
+                      ]),
+                      SizedBox(height: 12),
+                      _buildCheatSheetSection('CONTROL FLOW', [
+                        '// If statements',
+                        'if x > 5 {',
+                        '    println!("Greater than 5");',
+                        '} else if x == 5 {',
+                        '    println!("Equals 5");',
+                        '} else {',
+                        '    println!("Less than 5");',
+                        '}',
+                        '',
+                        '// If as expression',
+                        'let result = if x > 0 { "positive" } else { "negative" };',
+                      ]),
+                    ],
+                  ),
+                ),
+                SizedBox(width: 20),
+                // Middle Column
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildCheatSheetSection('LOOPS', [
+                        '// For loops',
+                        'for i in 0..5 {           // 0 to 4',
+                        '    println!("{}", i);',
+                        '}',
+                        'for item in vec![1, 2, 3] {',
+                        '    println!("{}", item);',
+                        '}',
+                        '',
+                        '// While loops',
+                        'let mut count = 0;',
+                        'while count < 3 {',
+                        '    println!("{}", count);',
+                        '    count += 1;',
+                        '}',
+                      ]),
+                      SizedBox(height: 12),
+                      _buildCheatSheetSection('INFINITE LOOPS & CONTROL', [
+                        '// Infinite loop',
+                        'loop {',
+                        '    println!("Forever!");',
+                        '    break; // Exit loop',
+                        '}',
+                        '',
+                        '// Loop with return value',
+                        'let result = loop {',
+                        '    counter += 1;',
+                        '    if counter == 10 {',
+                        '        break counter * 2;',
+                        '    }',
+                        '};',
+                      ]),
+                      SizedBox(height: 12),
+                      _buildCheatSheetSection('FUNCTIONS', [
+                        '// Basic function',
+                        'fn greet() {',
+                        '    println!("Hello!");',
+                        '}',
+                        '',
+                        '// Function with parameters',
+                        'fn add(x: i32, y: i32) -> i32 {',
+                        '    x + y  // no semicolon = return',
+                        '}',
+                        '',
+                        '// Early return',
+                        'fn divide(x: f64, y: f64) -> f64 {',
+                        '    if y == 0.0 { return 0.0; }',
+                        '    x / y',
+                        '}',
+                      ]),
+                    ],
+                  ),
+                ),
+                SizedBox(width: 20),
+                // Right Column
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildCheatSheetSection('STRUCTS & ENUMS', [
+                        '// Struct',
+                        'struct Point {',
+                        '    x: i32,',
+                        '    y: i32,',
+                        '}',
+                        '',
+                        '// Enum',
+                        'enum Direction {',
+                        '    Up,',
+                        '    Down,',
+                        '    Left(i32), // with data',
+                        '    Right(i32),',
+                        '}',
+                      ]),
+                      SizedBox(height: 12),
+                      _buildCheatSheetSection('METHODS', [
+                        'impl Point {',
+                        '    fn new(x: i32, y: i32) -> Point {',
+                        '        Point { x, y }',
+                        '    }',
+                        '    ',
+                        '    fn distance(&self) -> f64 {',
+                        '        ((self.x.pow(2) + self.y.pow(2))',
+                        '         as f64).sqrt()',
+                        '    }',
+                        '}',
+                      ]),
+                      SizedBox(height: 12),
+                      _buildCheatSheetSection('MATCH EXPRESSIONS', [
+                        'match direction {',
+                        '    Direction::Up => println!("Going up!"),',
+                        '    Direction::Down => println!("Going down!"),',
+                        '    Direction::Left(steps) => {',
+                        '        println!("Left {} steps", steps);',
+                        '    }',
+                        '    Direction::Right(steps) => {',
+                        '        println!("Right {} steps", steps);',
+                        '    }',
+                        '}',
+                      ]),
+                    ],
+                  ),
+                ),
+              ],
+            );
+          } else {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildCheatSheetSection('VARIABLES', [
+                  'let x = 5;           // immutable',
+                  'let mut y = 10;      // mutable',
+                  'const PI: f64 = 3.14; // constant',
+                ]),
+                SizedBox(height: 10),
+                _buildCheatSheetSection('SCALAR TYPES', [
+                  'let age: i32 = 25;     // integers',
+                  'let pi: f64 = 3.14159; // floats',
+                  'let active: bool = true; // boolean',
+                  'let letter: char = \'A\'; // character',
+                ]),
+                SizedBox(height: 10),
+                _buildCheatSheetSection('CONTROL FLOW', [
+                  'if x > 5 { println!("Greater"); }',
+                  'let result = if x > 0 { "pos" } else { "neg" };',
+                ]),
+                SizedBox(height: 10),
+                _buildCheatSheetSection('LOOPS', [
+                  'for i in 0..5 { println!("{}", i); }',
+                  'while count < 3 { count += 1; }',
+                  'loop { break; } // infinite loop',
+                ]),
+                SizedBox(height: 10),
+                _buildCheatSheetSection('FUNCTIONS', [
+                  'fn greet() { println!("Hello!"); }',
+                  'fn add(x: i32, y: i32) -> i32 { x + y }',
+                ]),
+                SizedBox(height: 10),
+                _buildCheatSheetSection('STRUCTS & ENUMS', [
+                  'struct Sensor { pin: u8, value: u16 }',
+                  'enum SystemMode { Sleep, Active, Emergency(u8) }',
+                ]),
+              ],
+            );
+          }
+        },
+      ),
+      SizedBox(height: 20),
+      // Ownership Rules - Always at bottom
+      Container(
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFFFFE5E5), Color(0xFFFFCCCC)],
+          ),
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(color: Color(0xFFD32F2F), width: 2),
+        ),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.security, color: Color(0xFFD32F2F), size: 20),
+                SizedBox(width: 8),
+                Text(
+                  'OWNERSHIP RULES (THE GOLDEN RULES)',
+                  style: TextStyle(
+                    color: Color(0xFFD32F2F),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 12),
+            _buildOwnershipRule('1.', 'Each value has exactly one owner'),
+            _buildOwnershipRule('2.', 'Only one owner at a time (prevents double-free)'),
+            _buildOwnershipRule('3.', 'When owner goes out of scope, value is dropped'),
+            SizedBox(height: 8),
+            Text(
+              'These rules eliminate memory leaks and data races at compile time!',
+              style: TextStyle(
+                color: Color(0xFFD32F2F),
+                fontSize: 12,
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.w600,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
+}
+
+// Helper method for cheat sheet sections
+Widget _buildCheatSheetSection(String title, List<String> codeLines) {
+  return Container(
+    padding: EdgeInsets.all(12),
+    decoration: BoxDecoration(
+      color: lightGray,
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: rustOrange, width: 1),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: TextStyle(
+            color: rustOrange,
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(height: 8),
+        Container(
+          padding: EdgeInsets.all(8),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: darkGray,
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: codeLines.map((line) => 
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 1),
+                child: Text(
+                  line,
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    color: line.startsWith('//') ? Color(0xFF81C784) : 
+                           line.contains('let') || line.contains('const') ? Color(0xFF4FC3F7) :
+                           line.contains('struct') || line.contains('enum') || line.contains('impl') ? Color(0xFFFFB74D) :
+                           line.contains('fn ') ? Color(0xFFBA68C8) :
+                           line.contains('if') || line.contains('for') || line.contains('while') || line.contains('loop') || line.contains('match') ? Color(0xFFFF8A65) :
+                           Color(0xFFE0E0E0),
+                    fontSize: 9,
+                  ),
+                ),
+              )
+            ).toList(),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+// Helper method for ownership rules
+Widget _buildOwnershipRule(String number, String rule) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 2),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: 16,
+          height: 16,
+          decoration: BoxDecoration(
+            color: Color(0xFFD32F2F),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Center(
+            child: Text(
+              number,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 8,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            rule,
+            style: TextStyle(
+              color: Color(0xFFD32F2F),
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildEmbeddedRustCheatSheetSlide() {
+  return _buildResponsiveSlideTemplate(
+    title: 'EMBEDDED RUST CHEATSHEET',
+    children: [
+      LayoutBuilder(
+        builder: (context, constraints) {
+          bool isWide = constraints.maxWidth > 1000;
+          
+          if (isWide) {
+            return Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Left Column
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildCheatSheetSection('VARIABLES (Like Hardware Registers)', [
+                        'let led_state = false;        // LED is OFF (immutable)',
+                        'let mut sensor_reading = 0;   // Sensor value can change',
+                        'const MAX_VOLTAGE: f32 = 3.3; // Board voltage (constant)',
+                      ]),
+                      SizedBox(height: 12),
+                      _buildCheatSheetSection('DATA TYPES (Hardware Values)', [
+                        'let pin_number: u8 = 13;      // Pin numbers (0-255)',
+                        'let temperature: f32 = 25.6;  // Sensor readings',
+                        'let button_pressed: bool = true; // Digital input',
+                        'let status_char: char = \'R\';   // Status indicator',
+                      ]),
+                      SizedBox(height: 12),
+                      _buildCheatSheetSection('COLLECTIONS (Multiple Sensors)', [
+                        '// Multiple pin states',
+                        'let pin_states: (bool, bool, bool) = (true, false, true);',
+                        'let first_pin = pin_states.0;',
+                        '',
+                        '// Sensor readings array',
+                        'let temperatures: [f32; 4] = [20.1, 21.5, 19.8, 22.0];',
+                        'let first_temp = temperatures[0];',
+                      ]),
+                      SizedBox(height: 12),
+                      _buildCheatSheetSection('DECISIONS (Control Logic)', [
+                        '// Check sensor threshold',
+                        'if temperature > 30.0 {',
+                        '    turn_on_fan();',
+                        '} else if temperature < 10.0 {',
+                        '    turn_on_heater();',
+                        '} else {',
+                        '    normal_operation();',
+                        '}',
+                        '',
+                        '// Set LED color based on status',
+                        'let led_color = if battery_low { "red" } else { "green" };',
+                      ]),
+                    ],
+                  ),
+                ),
+                SizedBox(width: 20),
+                // Middle Column
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildCheatSheetSection('LOOPS (Periodic Tasks)', [
+                        '// Blink LED 5 times',
+                        'for blink_count in 0..5 {',
+                        '    toggle_led();',
+                        '    delay_ms(500);',
+                        '}',
+                        '',
+                        '// Read all sensors',
+                        'for sensor in sensor_array {',
+                        '    let value = read_sensor(sensor);',
+                        '}',
+                        '',
+                        '// Wait for button press',
+                        'while !button_pressed() {',
+                        '    check_other_tasks();',
+                        '}',
+                      ]),
+                      SizedBox(height: 12),
+                      _buildCheatSheetSection('MAIN LOOP (Embedded Heart)', [
+                        '// Main program loop (runs forever)',
+                        'loop {',
+                        '    read_sensors();',
+                        '    process_data();',
+                        '    update_outputs();',
+                        '    delay_ms(100); // 10Hz update rate',
+                        '}',
+                        '',
+                        '// Wait for specific condition',
+                        'let startup_delay = loop {',
+                        '    init_counter += 1;',
+                        '    if system_ready() {',
+                        '        break init_counter * 10;',
+                        '    }',
+                        '};',
+                      ]),
+                      SizedBox(height: 12),
+                      _buildCheatSheetSection('FUNCTIONS (Reusable Code)', [
+                        '// Turn LED on/off',
+                        'fn set_led(pin: u8, state: bool) {',
+                        '    digital_write(pin, state);',
+                        '}',
+                        '',
+                        '// Read temperature and return value',
+                        'fn read_temp_sensor() -> f32 {',
+                        '    let raw = analog_read(TEMP_PIN);',
+                        '    convert_to_celsius(raw)',
+                        '}',
+                        '',
+                        '// Safety check with early return',
+                        'fn check_battery() -> bool {',
+                        '    if voltage < 3.0 { return false; }',
+                        '    voltage > 3.7  // Battery OK',
+                        '}',
+                      ]),
+                    ],
+                  ),
+                ),
+                SizedBox(width: 20),
+                // Right Column
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildCheatSheetSection('DEVICE STRUCTURES', [
+                        '// Represent a sensor',
+                        'struct TemperatureSensor {',
+                        '    pin: u8,',
+                        '    calibration_offset: f32,',
+                        '}',
+                        '',
+                        '// Different types of devices',
+                        'enum DeviceType {',
+                        '    Led,',
+                        '    Button,',
+                        '    Sensor(u8),     // with pin number',
+                        '    Motor(u8, u8),  // with speed & direction pins',
+                        '}',
+                      ]),
+                      SizedBox(height: 12),
+                      _buildCheatSheetSection('DEVICE METHODS', [
+                        'impl TemperatureSensor {',
+                        '    fn new(pin: u8) -> TemperatureSensor {',
+                        '        TemperatureSensor { ',
+                        '            pin, ',
+                        '            calibration_offset: 0.0 ',
+                        '        }',
+                        '    }',
+                        '    ',
+                        '    fn read_celsius(&self) -> f32 {',
+                        '        let raw = analog_read(self.pin);',
+                        '        raw * 0.1 + self.calibration_offset',
+                        '    }',
+                        '}',
+                      ]),
+                      SizedBox(height: 12),
+                      _buildCheatSheetSection('DEVICE CONTROL (Match)', [
+                        '// Handle different device types',
+                        'match device_type {',
+                        '    DeviceType::Led => {',
+                        '        toggle_led();',
+                        '    }',
+                        '    DeviceType::Button => {',
+                        '        check_button_state();',
+                        '    }',
+                        '    DeviceType::Sensor(pin) => {',
+                        '        read_sensor_on_pin(pin);',
+                        '    }',
+                        '    DeviceType::Motor(speed_pin, dir_pin) => {',
+                        '        control_motor(speed_pin, dir_pin);',
+                        '    }',
+                        '}',
+                      ]),
+                    ],
+                  ),
+                ),
+              ],
+            );
+          } else {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildCheatSheetSection('VARIABLES (Hardware)', [
+                  'let led_state = false;        // LED OFF',
+                  'let mut sensor_value = 0;     // Can change',
+                  'const MAX_VOLTAGE: f32 = 3.3; // Constant',
+                ]),
+                SizedBox(height: 10),
+                _buildCheatSheetSection('DATA TYPES', [
+                  'let pin: u8 = 13;           // Pin number',
+                  'let temp: f32 = 25.6;       // Temperature',
+                  'let pressed: bool = true;   // Button state',
+                ]),
+                SizedBox(height: 10),
+                _buildCheatSheetSection('CONTROL LOGIC', [
+                  'if temp > 30.0 { turn_on_fan(); }',
+                  'let status = if battery_low { "red" } else { "green" };',
+                ]),
+                SizedBox(height: 10),
+                _buildCheatSheetSection('LOOPS (Tasks)', [
+                  'for i in 0..5 { blink_led(); }      // Blink 5 times',
+                  'while !ready() { wait(); }          // Wait for ready',
+                  'loop { main_task(); delay(100); }   // Main loop',
+                ]),
+                SizedBox(height: 10),
+                _buildCheatSheetSection('FUNCTIONS', [
+                  'fn set_led(pin: u8, on: bool) { ... }',
+                  'fn read_sensor() -> f32 { ... }',
+                ]),
+                SizedBox(height: 10),
+                _buildCheatSheetSection('DEVICES', [
+                  'struct Sensor { pin: u8, offset: f32 }',
+                  'enum Device { Led, Button, Sensor(u8) }',
+                ]),
+              ],
+            );
+          }
+        },
+      ),
+      SizedBox(height: 20),
+      // Embedded-focused Ownership Rules
+      Container(
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFFE8F5E8), Color(0xFFD4F1D4)],
+          ),
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(color: Color(0xFF2E7D32), width: 2),
+        ),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.memory, color: Color(0xFF2E7D32), size: 20),
+                SizedBox(width: 8),
+                Text(
+                  'MEMORY SAFETY (Why Rust is Perfect for Embedded)',
+                  style: TextStyle(
+                    color: Color(0xFF2E7D32),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 12),
+            _buildOwnershipRule('1.', 'Each sensor/device has one owner (no conflicts)'),
+            _buildOwnershipRule('2.', 'Only one part of code controls each resource'),
+            _buildOwnershipRule('3.', 'Memory automatically freed (no memory leaks)'),
+            SizedBox(height: 8),
+            Text(
+              'Perfect for microcontrollers: No garbage collector, no crashes, predictable timing!',
+              style: TextStyle(
+                color: Color(0xFF2E7D32),
+                fontSize: 12,
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.w600,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
+}
+
+// Helper method for cheat sheet sections
+Widget _buildEmbeddedCheatSheetSection(String title, List<String> codeLines) {
+  return Container(
+    padding: EdgeInsets.all(12),
+    decoration: BoxDecoration(
+      color: lightGray,
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: rustOrange, width: 1),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: TextStyle(
+            color: rustOrange,
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(height: 8),
+        Container(
+          padding: EdgeInsets.all(8),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: darkGray,
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: codeLines.map((line) => 
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 1),
+                child: Text(
+                  line,
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    color: line.startsWith('//') ? Color(0xFF81C784) : 
+                           line.contains('let') || line.contains('const') ? Color(0xFF4FC3F7) :
+                           line.contains('struct') || line.contains('enum') || line.contains('impl') ? Color(0xFFFFB74D) :
+                           line.contains('fn ') ? Color(0xFFBA68C8) :
+                           line.contains('if') || line.contains('for') || line.contains('while') || line.contains('loop') || line.contains('match') ? Color(0xFFFF8A65) :
+                           Color(0xFFE0E0E0),
+                    fontSize: 9,
+                  ),
+                ),
+              )
+            ).toList(),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+// Helper method for ownership rules
+Widget _buildEmbeddedOwnershipRule(String number, String rule) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 2),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: 16,
+          height: 16,
+          decoration: BoxDecoration(
+            color: Color(0xFF2E7D32),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Center(
+            child: Text(
+              number,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 8,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            rule,
+            style: TextStyle(
+              color: Color(0xFF2E7D32),
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ),
