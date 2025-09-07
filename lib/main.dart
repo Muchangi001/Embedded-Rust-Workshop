@@ -1214,7 +1214,7 @@ Widget _buildWhatIsEmbeddedSlide() {
 
   Widget _buildRoboticsSlide() {
   return _buildResponsiveSlideTemplate(
-    title: 'RUST FOR ROBOTICS',
+    title: 'RUST FOR EMBEDDED SYSTEMS',
     children: [
       LayoutBuilder(
         builder: (context, constraints) {
@@ -1239,7 +1239,7 @@ Widget _buildWhatIsEmbeddedSlide() {
                 ),
                 SizedBox(height: 10),
                 Text(
-                  'EMBEDDED ROBOTICS',
+                  'ROBOTICS',
                   style: TextStyle(
                     color: rustBrown,
                     fontSize: 16,
