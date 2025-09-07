@@ -71,9 +71,9 @@ class _PresentationScreenState extends State<PresentationScreen> {
                 _buildMemorySafetySlide(),
                 _buildPerformanceSlide(),
                 _buildRustEcosystemSlide(),
+                _buildFrontendMobileSlide(),
                 _buildBackendSlide(),
                 _buildGamingSlide(),
-                _buildFrontendMobileSlide(),
                 _buildRoboticsSlide(),
                 _buildWrapUpSlide(),
               ],
@@ -1212,7 +1212,7 @@ Widget _buildWhatIsEmbeddedSlide() {
 
   Widget _buildRoboticsSlide() {
   return _buildResponsiveSlideTemplate(
-    title: 'RUST FOR ROBOTICS',
+    title: 'RUST FOR EMBEDDED SYSTEMS \nAND ROBOTICS',
     children: [
       LayoutBuilder(
         builder: (context, constraints) {
@@ -1252,8 +1252,8 @@ Widget _buildWhatIsEmbeddedSlide() {
           Widget featuresList = Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _buildRoboticsFeature(Icons.timer, 'EMBASSY FRAMEWORK', 'Async embedded runtime\nfor real-time control'),
               _buildRoboticsFeature(Icons.memory, 'ESP-HAL', 'Hardware abstraction layer\nfor ESP32 microcontrollers'),
+              _buildRoboticsFeature(Icons.timer, 'EMBASSY FRAMEWORK', 'Async embedded runtime\nfor real-time control'),
               _buildRoboticsFeature(Icons.link, 'ROS2 INTEGRATION', 'Native Rust ROS2 nodes\nHigh-performance robotics'),
               _buildRoboticsFeature(Icons.schedule, 'REAL-TIME GUARANTEES', 'Deterministic timing\nNo garbage collection pauses'),
               _buildRoboticsFeature(Icons.health_and_safety, 'SAFETY CRITICAL', 'Memory safety for\nautonomous systems'),
