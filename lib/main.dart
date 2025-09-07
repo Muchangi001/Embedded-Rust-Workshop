@@ -1214,7 +1214,7 @@ Widget _buildWhatIsEmbeddedSlide() {
 
   Widget _buildRoboticsSlide() {
   return _buildResponsiveSlideTemplate(
-    title: 'RUST FOR EMBEDDED SYSTEMS \nAND ROBOTICS',
+    title: 'RUST FOR ROBOTICS',
     children: [
       LayoutBuilder(
         builder: (context, constraints) {
