@@ -2863,7 +2863,7 @@ Widget _buildEmbeddedRustCheatSheetSlide() {
                 Icon(Icons.memory, color: Color(0xFF2E7D32), size: 20),
                 SizedBox(width: 8),
                 Text(
-                  'MEMORY SAFETY (Why Rust is Perfect for Embedded)',
+                  'MEMORY SAFETY',
                   style: TextStyle(
                     color: Color(0xFF2E7D32),
                     fontSize: 16,
