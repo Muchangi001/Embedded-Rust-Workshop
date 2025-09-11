@@ -15,8 +15,16 @@ class RustPresentationApp extends StatelessWidget {
         primarySwatch: Colors.orange,
         fontFamily: 'Roboto',
         textTheme: TextTheme(
-          headlineLarge: TextStyle(fontSize: 48, fontWeight: FontWeight.bold, color: Color(0xFF2B2B2B)),
-          headlineMedium: TextStyle(fontSize: 36, fontWeight: FontWeight.bold, color: Color(0xFFDE3C00)),
+          headlineLarge: TextStyle(
+            fontSize: 48,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF2B2B2B),
+          ),
+          headlineMedium: TextStyle(
+            fontSize: 36,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFDE3C00),
+          ),
           bodyLarge: TextStyle(fontSize: 24, color: Color(0xFF2B2B2B)),
           bodyMedium: TextStyle(fontSize: 20, color: Color(0xFF4A4A4A)),
         ),
@@ -79,7 +87,7 @@ class _PresentationScreenState extends State<PresentationScreen> {
                 _buildWrapUpSlide(),
                 _buildSetupGuideSlide(),
                 _buildRustCheatSheetSlide(),
-                _buildEmbeddedRustCheatSheetSlide()
+                _buildEmbeddedRustCheatSheetSlide(),
               ],
             ),
             // Top navigation
@@ -97,12 +105,12 @@ class _PresentationScreenState extends State<PresentationScreen> {
       builder: (context, constraints) {
         double titleFontSize = constraints.maxWidth * 0.06;
         double subtitleFontSize = constraints.maxWidth * 0.028;
-        
+
         if (constraints.maxWidth < 600) {
           titleFontSize = constraints.maxWidth * 0.08;
           subtitleFontSize = constraints.maxWidth * 0.04;
         }
-        
+
         return Container(
           padding: EdgeInsets.symmetric(
             horizontal: constraints.maxWidth * 0.08,
@@ -115,10 +123,7 @@ class _PresentationScreenState extends State<PresentationScreen> {
               Container(
                 width: constraints.maxWidth * 0.2,
                 height: constraints.maxWidth * 0.2,
-                constraints: BoxConstraints(
-                  maxWidth: 200,
-                  maxHeight: 200,
-                ),
+                constraints: BoxConstraints(maxWidth: 200, maxHeight: 200),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [rustOrange, rustBrown],
@@ -131,7 +136,7 @@ class _PresentationScreenState extends State<PresentationScreen> {
                       color: rustOrange.withOpacity(0.3),
                       blurRadius: 20,
                       spreadRadius: 2,
-                    )
+                    ),
                   ],
                 ),
                 child: Center(
@@ -170,10 +175,7 @@ class _PresentationScreenState extends State<PresentationScreen> {
               ),
               SizedBox(height: constraints.maxHeight * 0.06),
               Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 12,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 decoration: BoxDecoration(
                   color: mediumOrange,
                   borderRadius: BorderRadius.circular(30),
@@ -200,21 +202,22 @@ class _PresentationScreenState extends State<PresentationScreen> {
   Widget _buildAgendaSlide() {
     return Center(
       child: _buildResponsiveSlideTemplate(
-      title: 'AGENDA',
-      children: [
-        _buildBulletPoint('What are Embedded Systems?'),
-        _buildBulletPoint('The C/C++ Problem'),
-        _buildBulletPoint('Enter Rust'),
-        _buildBulletPoint('Why Rust for Embedded?'),
-        _buildBulletPoint('Rust\'s Advantages'),
-        _buildBulletPoint('The Rust Ecosystem'),
-        _buildBulletPoint('Beyond Embedded'),
-        _buildBulletPoint('Let\'s Get Started!'),
-      ],
-    ));
+        title: 'AGENDA',
+        children: [
+          _buildBulletPoint('What are Embedded Systems?'),
+          _buildBulletPoint('The C/C++ Problem'),
+          _buildBulletPoint('Enter Rust'),
+          _buildBulletPoint('Why Rust for Embedded?'),
+          _buildBulletPoint('Rust\'s Advantages'),
+          _buildBulletPoint('The Rust Ecosystem'),
+          _buildBulletPoint('Beyond Embedded'),
+          _buildBulletPoint('Let\'s Get Started!'),
+        ],
+      ),
+    );
   }
 
-Widget _buildWhatIsEmbeddedSlide() {
+  Widget _buildWhatIsEmbeddedSlide() {
     return _buildResponsiveSlideTemplate(
       title: 'WHAT ARE EMBEDDED SYSTEMS?',
       children: [
@@ -241,17 +244,186 @@ Widget _buildWhatIsEmbeddedSlide() {
                   ),
                 ),
                 SizedBox(height: 30),
+
+                // Components Section
+                Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.blue.shade50,
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(color: Colors.blue.shade300, width: 2),
+                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        'EMBEDDED SYSTEM COMPONENTS',
+                        style: TextStyle(
+                          fontSize: constraints.maxWidth * 0.025,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue.shade800,
+                        ),
+                      ),
+                      SizedBox(height: 15),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          _buildComponentCard(
+                            'MCU',
+                            Icons.memory,
+                            'Brain of\nthe system',
+                            Colors.purple,
+                          ),
+                          Icon(Icons.add, color: Colors.grey, size: 20),
+                          _buildComponentCard(
+                            'Sensors',
+                            Icons.sensors,
+                            'Input\ndevices',
+                            Colors.green,
+                          ),
+                          Icon(Icons.add, color: Colors.grey, size: 20),
+                          _buildComponentCard(
+                            'Actuators',
+                            Icons.settings_input_component,
+                            'Output\ndevices',
+                            Colors.orange,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 25),
+
+                // MCU Details Section
+                Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.purple.shade50,
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(color: Colors.purple.shade300, width: 2),
+                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        'MICROCONTROLLER UNIT (MCU)',
+                        style: TextStyle(
+                          fontSize: constraints.maxWidth * 0.025,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.purple.shade800,
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        'A small computer on a single chip',
+                        style: TextStyle(
+                          fontSize: constraints.maxWidth * 0.02,
+                          fontStyle: FontStyle.italic,
+                          color: Colors.purple.shade600,
+                        ),
+                      ),
+                      SizedBox(height: 15),
+                      Wrap(
+                        spacing: 10,
+                        runSpacing: 10,
+                        alignment: WrapAlignment.center,
+                        children: [
+                          _buildMCUComponent(
+                            'Processor',
+                            Icons.api,
+                            'Executes instructions\n& performs calculations',
+                          ),
+                          _buildMCUComponent(
+                            'RAM',
+                            Icons.memory,
+                            'Temporary data storage\n& program execution',
+                          ),
+                          _buildMCUComponent(
+                            'ROM/Flash',
+                            Icons.storage,
+                            'Permanent program\n& data storage',
+                          ),
+                          _buildMCUComponent(
+                            'I/O Ports',
+                            Icons.input,
+                            'Communication with\nexternal devices',
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 25),
+                // Communication Protocols Section
+                Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.green.shade50,
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(color: Colors.green.shade300, width: 2),
+                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        'COMMUNICATION PROTOCOLS',
+                        style: TextStyle(
+                          fontSize: constraints.maxWidth * 0.025,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green.shade800,
+                        ),
+                      ),
+                      SizedBox(height: 15),
+                      Wrap(
+                        spacing: 10,
+                        runSpacing: 10,
+                        alignment: WrapAlignment.center,
+                        children: [
+                          _buildProtocolCard(
+                            'UART',
+                            Icons.swap_horiz,
+                            'Serial communication\nGPS modules, HC-05/06 Bluetooth\nESP32 WiFi, GSM modules',
+                            Colors.blue,
+                          ),
+                          _buildProtocolCard(
+                            'I2C',
+                            Icons.device_hub,
+                            '2-wire bus protocol\nBME280 temp/humidity\nMPU6050 gyroscope\nOLED displays',
+                            Colors.orange,
+                          ),
+                          _buildProtocolCard(
+                            'SPI',
+                            Icons.timeline,
+                            '4-wire high speed\nSD card modules\nNRF24L01 wireless\nTFT displays',
+                            Colors.purple,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 25),
                 Wrap(
                   spacing: 15,
                   runSpacing: 15,
                   alignment: WrapAlignment.center,
                   children: [
-                    _buildEmbeddedExample('Smartwatch', Icons.watch, 'ARM Cortex\nLow Power'),
-                    _buildEmbeddedExample('Car ECU', Icons.directions_car, 'Multiple MCUs\nReal-time'),
-                    _buildEmbeddedExample('IoT Sensor', Icons.sensors, 'ESP32\nWiFi + BLE'),
+                    _buildEmbeddedExample(
+                      'Smartwatch',
+                      Icons.watch,
+                      'ARM Cortex\nLow Power',
+                    ),
+                    _buildEmbeddedExample(
+                      'Car ECU',
+                      Icons.directions_car,
+                      'Multiple MCUs\nReal-time',
+                    ),
+                    _buildEmbeddedExample(
+                      'IoT Sensor',
+                      Icons.sensors,
+                      'ESP32\nWiFi + BLE',
+                    ),
                   ],
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: 25),
                 Container(
                   padding: EdgeInsets.all(16),
                   decoration: BoxDecoration(
@@ -262,7 +434,7 @@ Widget _buildWhatIsEmbeddedSlide() {
                   child: Column(
                     children: [
                       Text(
-                        'CHARACTERISTICS',
+                        'CONSTRAINTS OF EMBEDDED SYSTEMS',
                         style: TextStyle(
                           color: rustBrown,
                           fontSize: 16,
@@ -272,10 +444,7 @@ Widget _buildWhatIsEmbeddedSlide() {
                       SizedBox(height: 8),
                       Text(
                         'Limited memory, power, processing\nReal-time, reliable, purpose-built',
-                        style: TextStyle(
-                          color: darkGray,
-                          fontSize: 14,
-                        ),
+                        style: TextStyle(color: darkGray, fontSize: 14),
                         textAlign: TextAlign.center,
                       ),
                     ],
@@ -287,7 +456,126 @@ Widget _buildWhatIsEmbeddedSlide() {
         ),
       ],
     );
-}
+  }
+
+  // Helper method for protocol cards
+  Widget _buildProtocolCard(
+    String title,
+    IconData icon,
+    String description,
+    Color color,
+  ) {
+    return Container(
+      width: 120,
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: color, width: 1.5),
+      ),
+      child: Column(
+        children: [
+          Icon(icon, color: color, size: 28),
+          SizedBox(height: 8),
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 4),
+          Text(
+            description,
+            style: TextStyle(fontSize: 9, color: color),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Helper method for component cards
+  Widget _buildComponentCard(
+    String title,
+    IconData icon,
+    String description,
+    Color color,
+  ) {
+    return Container(
+      width: 100,
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: color, width: 1.5),
+      ),
+      child: Column(
+        children: [
+          Icon(icon, color: color, size: 30),
+          SizedBox(height: 8),
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 4),
+          Text(
+            description,
+            style: TextStyle(fontSize: 10, color: color.withOpacity(0.7)),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Helper method for MCU component cards
+  Widget _buildMCUComponent(String title, IconData icon, String function) {
+    return Container(
+      width: 140,
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.purple.shade200, width: 1),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.1),
+            spreadRadius: 1,
+            blurRadius: 3,
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Icon(icon, color: Colors.purple.shade600, size: 24),
+          SizedBox(height: 6),
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+              color: Colors.purple.shade800,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 4),
+          Text(
+            function,
+            style: TextStyle(fontSize: 9, color: Colors.grey.shade700),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
 
   Widget _buildCPlusPlusProblemsSlide() {
     return _buildResponsiveSlideTemplate(
@@ -352,12 +640,12 @@ Widget _buildWhatIsEmbeddedSlide() {
       builder: (context, constraints) {
         double titleFontSize = constraints.maxWidth * 0.06;
         double quoteFontSize = constraints.maxWidth * 0.025;
-        
+
         if (constraints.maxWidth < 600) {
           titleFontSize = constraints.maxWidth * 0.08;
           quoteFontSize = constraints.maxWidth * 0.03;
         }
-        
+
         return Container(
           padding: EdgeInsets.symmetric(
             horizontal: constraints.maxWidth * 0.08,
@@ -381,9 +669,7 @@ Widget _buildWhatIsEmbeddedSlide() {
               Container(
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [lightOrange, mediumOrange],
-                  ),
+                  gradient: LinearGradient(colors: [lightOrange, mediumOrange]),
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(color: rustOrange, width: 2),
                   boxShadow: [
@@ -391,16 +677,12 @@ Widget _buildWhatIsEmbeddedSlide() {
                       color: rustOrange.withOpacity(0.2),
                       blurRadius: 15,
                       spreadRadius: 2,
-                    )
+                    ),
                   ],
                 ),
                 child: Column(
                   children: [
-                    Icon(
-                      Icons.security,
-                      color: rustBrown,
-                      size: 40,
-                    ),
+                    Icon(Icons.security, color: rustBrown, size: 40),
                     SizedBox(height: 15),
                     Text(
                       '"A systems programming language that runs blazingly fast,\nprevents segfaults, and guarantees thread safety."',
@@ -448,7 +730,7 @@ Widget _buildWhatIsEmbeddedSlide() {
         LayoutBuilder(
           builder: (context, constraints) {
             bool isWide = constraints.maxWidth > 800;
-            
+
             if (isWide) {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -571,7 +853,7 @@ Widget _buildWhatIsEmbeddedSlide() {
         LayoutBuilder(
           builder: (context, constraints) {
             bool isWide = constraints.maxWidth > 900;
-            
+
             if (isWide) {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -582,11 +864,31 @@ Widget _buildWhatIsEmbeddedSlide() {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildAdvantage(Icons.lock, 'Ownership System', 'Prevents memory leaks & dangling pointers'),
-                        _buildAdvantage(Icons.auto_awesome, 'Zero-Cost Abstractions', 'High-level code, low-level performance'),
-                        _buildAdvantage(Icons.find_in_page, 'Pattern Matching', 'Handle all cases, no surprises'),
-                        _buildAdvantage(Icons.inventory, 'Cargo Package Manager', 'Thousands of crates available'),
-                        _buildAdvantage(Icons.assignment_turned_in, 'Built-in Testing', 'Unit tests, integration tests, docs tests'),
+                        _buildAdvantage(
+                          Icons.lock,
+                          'Ownership System',
+                          'Prevents memory leaks & dangling pointers',
+                        ),
+                        _buildAdvantage(
+                          Icons.auto_awesome,
+                          'Zero-Cost Abstractions',
+                          'High-level code, low-level performance',
+                        ),
+                        _buildAdvantage(
+                          Icons.find_in_page,
+                          'Pattern Matching',
+                          'Handle all cases, no surprises',
+                        ),
+                        _buildAdvantage(
+                          Icons.inventory,
+                          'Cargo Package Manager',
+                          'Thousands of crates available',
+                        ),
+                        _buildAdvantage(
+                          Icons.assignment_turned_in,
+                          'Built-in Testing',
+                          'Unit tests, integration tests, docs tests',
+                        ),
                       ],
                     ),
                   ),
@@ -637,11 +939,31 @@ Widget _buildWhatIsEmbeddedSlide() {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildAdvantage(Icons.lock, 'Ownership System', 'Prevents memory leaks & dangling pointers'),
-                  _buildAdvantage(Icons.auto_awesome, 'Zero-Cost Abstractions', 'High-level code, low-level performance'),
-                  _buildAdvantage(Icons.find_in_page, 'Pattern Matching', 'Handle all cases, no surprises'),
-                  _buildAdvantage(Icons.inventory, 'Cargo Package Manager', 'Thousands of crates available'),
-                  _buildAdvantage(Icons.assignment_turned_in, 'Built-in Testing', 'Unit tests, integration tests, docs tests'),
+                  _buildAdvantage(
+                    Icons.lock,
+                    'Ownership System',
+                    'Prevents memory leaks & dangling pointers',
+                  ),
+                  _buildAdvantage(
+                    Icons.auto_awesome,
+                    'Zero-Cost Abstractions',
+                    'High-level code, low-level performance',
+                  ),
+                  _buildAdvantage(
+                    Icons.find_in_page,
+                    'Pattern Matching',
+                    'Handle all cases, no surprises',
+                  ),
+                  _buildAdvantage(
+                    Icons.inventory,
+                    'Cargo Package Manager',
+                    'Thousands of crates available',
+                  ),
+                  _buildAdvantage(
+                    Icons.assignment_turned_in,
+                    'Built-in Testing',
+                    'Unit tests, integration tests, docs tests',
+                  ),
                 ],
               );
             }
@@ -658,7 +980,7 @@ Widget _buildWhatIsEmbeddedSlide() {
         LayoutBuilder(
           builder: (context, constraints) {
             bool isWide = constraints.maxWidth > 800;
-            
+
             Widget cppExample = Container(
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
@@ -723,7 +1045,11 @@ Widget _buildWhatIsEmbeddedSlide() {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.check_circle, color: Color(0xFF4CAF50), size: 20),
+                      Icon(
+                        Icons.check_circle,
+                        color: Color(0xFF4CAF50),
+                        size: 20,
+                      ),
                       SizedBox(width: 8),
                       Text(
                         'RUST WAY',
@@ -776,11 +1102,7 @@ Widget _buildWhatIsEmbeddedSlide() {
                   )
                 else
                   Column(
-                    children: [
-                      cppExample,
-                      SizedBox(height: 20),
-                      rustExample,
-                    ],
+                    children: [cppExample, SizedBox(height: 20), rustExample],
                   ),
                 SizedBox(height: 20),
                 Container(
@@ -822,10 +1144,30 @@ Widget _buildWhatIsEmbeddedSlide() {
                   runSpacing: 20,
                   alignment: WrapAlignment.center,
                   children: [
-                    _buildPerformanceBar('C/C++', 1.0, Color(0xFF2196F3), Icons.speed),
-                    _buildPerformanceBar('Rust', 0.98, rustOrange, Icons.rocket_launch),
-                    _buildPerformanceBar('Go', 0.6, Color(0xFF00BCD4), Icons.trending_up),
-                    _buildPerformanceBar('Python', 0.1, Color(0xFFFFEB3B), Icons.trending_down),
+                    _buildPerformanceBar(
+                      'C/C++',
+                      1.0,
+                      Color(0xFF2196F3),
+                      Icons.speed,
+                    ),
+                    _buildPerformanceBar(
+                      'Rust',
+                      0.98,
+                      rustOrange,
+                      Icons.rocket_launch,
+                    ),
+                    _buildPerformanceBar(
+                      'Go',
+                      0.6,
+                      Color(0xFF00BCD4),
+                      Icons.trending_up,
+                    ),
+                    _buildPerformanceBar(
+                      'Python',
+                      0.1,
+                      Color(0xFFFFEB3B),
+                      Icons.trending_down,
+                    ),
                   ],
                 ),
                 SizedBox(height: 30),
@@ -854,10 +1196,22 @@ Widget _buildWhatIsEmbeddedSlide() {
                         runSpacing: 15,
                         alignment: WrapAlignment.center,
                         children: [
-                          _buildPerfBenefit(Icons.auto_awesome, 'Zero-cost\nAbstractions'),
-                          _buildPerfBenefit(Icons.block, 'No Garbage\nCollector'),
-                          _buildPerfBenefit(Icons.av_timer, 'Predictable\nPerformance'),
-                          _buildPerfBenefit(Icons.memory, 'Manual Memory\nControl'),
+                          _buildPerfBenefit(
+                            Icons.auto_awesome,
+                            'Zero-cost\nAbstractions',
+                          ),
+                          _buildPerfBenefit(
+                            Icons.block,
+                            'No Garbage\nCollector',
+                          ),
+                          _buildPerfBenefit(
+                            Icons.av_timer,
+                            'Predictable\nPerformance',
+                          ),
+                          _buildPerfBenefit(
+                            Icons.memory,
+                            'Manual Memory\nControl',
+                          ),
                         ],
                       ),
                     ],
@@ -895,12 +1249,42 @@ Widget _buildWhatIsEmbeddedSlide() {
                   spacing: 15,
                   runSpacing: 15,
                   children: [
-                    _buildEcosystemCard('Robotics', 'ROS2, ESP HAL, Embassy', rustOrange, Icons.smart_toy),
-                    _buildEcosystemCard('Web Backend', 'Axum, Warp, Actix', Color(0xFF4CAF50), Icons.cloud),
-                    _buildEcosystemCard('Game Development', 'Bevy Engine', Color(0xFF9C27B0), Icons.sports_esports),
-                    _buildEcosystemCard('Desktop Apps', 'Tauri, Egui', Color(0xFF2196F3), Icons.desktop_windows),
-                    _buildEcosystemCard('Mobile Apps', 'Tauri Mobile', Color(0xFF3F51B5), Icons.phone_android),
-                    _buildEcosystemCard('Frontend', 'Leptos, Yew', Color(0xFFF44336), Icons.web),
+                    _buildEcosystemCard(
+                      'Robotics',
+                      'ROS2, ESP HAL, Embassy',
+                      rustOrange,
+                      Icons.smart_toy,
+                    ),
+                    _buildEcosystemCard(
+                      'Web Backend',
+                      'Axum, Warp, Actix',
+                      Color(0xFF4CAF50),
+                      Icons.cloud,
+                    ),
+                    _buildEcosystemCard(
+                      'Game Development',
+                      'Bevy Engine',
+                      Color(0xFF9C27B0),
+                      Icons.sports_esports,
+                    ),
+                    _buildEcosystemCard(
+                      'Desktop Apps',
+                      'Tauri, Egui',
+                      Color(0xFF2196F3),
+                      Icons.desktop_windows,
+                    ),
+                    _buildEcosystemCard(
+                      'Mobile Apps',
+                      'Tauri Mobile',
+                      Color(0xFF3F51B5),
+                      Icons.phone_android,
+                    ),
+                    _buildEcosystemCard(
+                      'Frontend',
+                      'Leptos, Yew',
+                      Color(0xFFF44336),
+                      Icons.web,
+                    ),
                   ],
                 ),
                 SizedBox(height: 20),
@@ -936,15 +1320,31 @@ Widget _buildWhatIsEmbeddedSlide() {
         LayoutBuilder(
           builder: (context, constraints) {
             bool isWide = constraints.maxWidth > 900;
-            
+
             Widget featuresList = Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildFeature(Icons.speed, 'BLAZING FAST APIs', 'Handle millions of requests per second'),
-                _buildFeature(Icons.security, 'TYPE-SAFE', 'Prevent runtime errors in production'),
-                _buildFeature(Icons.memory, 'LOW MEMORY USAGE', 'Perfect for cloud deployment'),
-                _buildFeature(Icons.sync, 'ASYNC/AWAIT', 'Handle thousands of concurrent connections'),
+                _buildFeature(
+                  Icons.speed,
+                  'BLAZING FAST APIs',
+                  'Handle millions of requests per second',
+                ),
+                _buildFeature(
+                  Icons.security,
+                  'TYPE-SAFE',
+                  'Prevent runtime errors in production',
+                ),
+                _buildFeature(
+                  Icons.memory,
+                  'LOW MEMORY USAGE',
+                  'Perfect for cloud deployment',
+                ),
+                _buildFeature(
+                  Icons.sync,
+                  'ASYNC/AWAIT',
+                  'Handle thousands of concurrent connections',
+                ),
                 SizedBox(height: 15),
                 Container(
                   padding: EdgeInsets.all(12),
@@ -955,10 +1355,7 @@ Widget _buildWhatIsEmbeddedSlide() {
                   ),
                   child: Text(
                     'Companies using Rust:\nDropbox, Discord, Cloudflare, Meta',
-                    style: TextStyle(
-                      color: Color(0xFF2E7D32),
-                      fontSize: 12,
-                    ),
+                    style: TextStyle(color: Color(0xFF2E7D32), fontSize: 12),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -1015,11 +1412,7 @@ Widget _buildWhatIsEmbeddedSlide() {
             } else {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  featuresList,
-                  SizedBox(height: 20),
-                  codeExample,
-                ],
+                children: [featuresList, SizedBox(height: 20), codeExample],
               );
             }
           },
@@ -1035,7 +1428,7 @@ Widget _buildWhatIsEmbeddedSlide() {
         LayoutBuilder(
           builder: (context, constraints) {
             bool isWide = constraints.maxWidth > 800;
-            
+
             Widget bevyCard = Container(
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
@@ -1065,10 +1458,7 @@ Widget _buildWhatIsEmbeddedSlide() {
                   SizedBox(height: 8),
                   Text(
                     'Data-driven game engine\nbuilt in Rust',
-                    style: TextStyle(
-                      color: Color(0xFF7B1FA2),
-                      fontSize: 14,
-                    ),
+                    style: TextStyle(color: Color(0xFF7B1FA2), fontSize: 14),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -1079,10 +1469,26 @@ Widget _buildWhatIsEmbeddedSlide() {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildGamingFeature(Icons.speed, 'HIGH PERFORMANCE', 'No garbage collection pauses\nConsistent frame rates'),
-                _buildGamingFeature(Icons.security, 'MEMORY SAFETY', 'No crashes from memory bugs\nStable gameplay'),
-                _buildGamingFeature(Icons.people, 'PARALLEL PROCESSING', 'Multi-core game loops\nBetter CPU utilization'),
-                _buildGamingFeature(Icons.architecture, 'MODULAR DESIGN', 'Entity Component System\nClean, maintainable code'),
+                _buildGamingFeature(
+                  Icons.speed,
+                  'HIGH PERFORMANCE',
+                  'No garbage collection pauses\nConsistent frame rates',
+                ),
+                _buildGamingFeature(
+                  Icons.security,
+                  'MEMORY SAFETY',
+                  'No crashes from memory bugs\nStable gameplay',
+                ),
+                _buildGamingFeature(
+                  Icons.people,
+                  'PARALLEL PROCESSING',
+                  'Multi-core game loops\nBetter CPU utilization',
+                ),
+                _buildGamingFeature(
+                  Icons.architecture,
+                  'MODULAR DESIGN',
+                  'Entity Component System\nClean, maintainable code',
+                ),
                 SizedBox(height: 15),
                 Container(
                   padding: EdgeInsets.all(12),
@@ -1093,10 +1499,7 @@ Widget _buildWhatIsEmbeddedSlide() {
                   ),
                   child: Text(
                     'Perfect for indie games, simulations,\nand even AAA game tools!',
-                    style: TextStyle(
-                      color: Color(0xFF7B1FA2),
-                      fontSize: 12,
-                    ),
+                    style: TextStyle(color: Color(0xFF7B1FA2), fontSize: 12),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -1115,11 +1518,7 @@ Widget _buildWhatIsEmbeddedSlide() {
             } else {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  bevyCard,
-                  SizedBox(height: 20),
-                  featuresList,
-                ],
+                children: [bevyCard, SizedBox(height: 20), featuresList],
               );
             }
           },
@@ -1135,7 +1534,7 @@ Widget _buildWhatIsEmbeddedSlide() {
         LayoutBuilder(
           builder: (context, constraints) {
             bool isWide = constraints.maxWidth > 800;
-            
+
             Widget leptosCard = _buildTechCard(
               'LEPTOS',
               'Frontend Web Framework',
@@ -1165,11 +1564,7 @@ Widget _buildWhatIsEmbeddedSlide() {
                   )
                 else
                   Column(
-                    children: [
-                      leptosCard,
-                      SizedBox(height: 15),
-                      tauriCard,
-                    ],
+                    children: [leptosCard, SizedBox(height: 15), tauriCard],
                   ),
                 SizedBox(height: 20),
                 Container(
@@ -1197,10 +1592,22 @@ Widget _buildWhatIsEmbeddedSlide() {
                         runSpacing: 15,
                         alignment: WrapAlignment.center,
                         children: [
-                          _buildFrontendBenefit(Icons.speed, 'Fast compilation\nto WebAssembly'),
-                          _buildFrontendBenefit(Icons.security, 'Type safety\nin the browser'),
-                          _buildFrontendBenefit(Icons.share, 'Share code between\nfrontend & backend'),
-                          _buildFrontendBenefit(Icons.storage, 'Small bundle\nsizes'),
+                          _buildFrontendBenefit(
+                            Icons.speed,
+                            'Fast compilation\nto WebAssembly',
+                          ),
+                          _buildFrontendBenefit(
+                            Icons.security,
+                            'Type safety\nin the browser',
+                          ),
+                          _buildFrontendBenefit(
+                            Icons.share,
+                            'Share code between\nfrontend & backend',
+                          ),
+                          _buildFrontendBenefit(
+                            Icons.storage,
+                            'Small bundle\nsizes',
+                          ),
                         ],
                       ),
                     ],
@@ -1215,106 +1622,113 @@ Widget _buildWhatIsEmbeddedSlide() {
   }
 
   Widget _buildRoboticsSlide() {
-  return _buildResponsiveSlideTemplate(
-    title: 'RUST FOR EMBEDDED SYSTEMS',
-    children: [
-      LayoutBuilder(
-        builder: (context, constraints) {
-          bool isWide = constraints.maxWidth > 800;
-          
-          Widget roboticsCard = Container(
-            padding: EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [lightOrange, mediumOrange],
+    return _buildResponsiveSlideTemplate(
+      title: 'RUST FOR EMBEDDED SYSTEMS',
+      children: [
+        LayoutBuilder(
+          builder: (context, constraints) {
+            bool isWide = constraints.maxWidth > 800;
+
+            Widget roboticsCard = Container(
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(colors: [lightOrange, mediumOrange]),
+                borderRadius: BorderRadius.circular(15),
+                border: Border.all(color: rustOrange, width: 2),
               ),
-              borderRadius: BorderRadius.circular(15),
-              border: Border.all(color: rustOrange, width: 2),
-            ),
-            child: Column(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.smart_toy, color: rustOrange, size: 40),
+                  SizedBox(height: 10),
+                  Text(
+                    'ROBOTICS',
+                    style: TextStyle(
+                      color: rustBrown,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            );
+
+            Widget featuresList = Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.smart_toy,
-                  color: rustOrange,
-                  size: 40,
+                _buildRoboticsFeature(
+                  Icons.memory,
+                  'ESP-HAL',
+                  'Hardware abstraction layer\nfor ESP32 microcontrollers',
                 ),
-                SizedBox(height: 10),
-                Text(
-                  'ROBOTICS',
-                  style: TextStyle(
-                    color: rustBrown,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+                _buildRoboticsFeature(
+                  Icons.timer,
+                  'EMBASSY FRAMEWORK',
+                  'Async embedded runtime\nfor real-time control',
+                ),
+                _buildRoboticsFeature(
+                  Icons.link,
+                  'ROS2 INTEGRATION',
+                  'Native Rust ROS2 nodes\nHigh-performance robotics',
+                ),
+                _buildRoboticsFeature(
+                  Icons.schedule,
+                  'REAL-TIME GUARANTEES',
+                  'Deterministic timing\nNo garbage collection pauses',
+                ),
+                _buildRoboticsFeature(
+                  Icons.health_and_safety,
+                  'SAFETY CRITICAL',
+                  'Memory safety for\nautonomous systems',
+                ),
+                SizedBox(height: 15),
+                Container(
+                  padding: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: lightOrange,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: rustOrange, width: 1),
                   ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-          );
-
-          Widget featuresList = Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildRoboticsFeature(Icons.memory, 'ESP-HAL', 'Hardware abstraction layer\nfor ESP32 microcontrollers'),
-              _buildRoboticsFeature(Icons.timer, 'EMBASSY FRAMEWORK', 'Async embedded runtime\nfor real-time control'),
-              _buildRoboticsFeature(Icons.link, 'ROS2 INTEGRATION', 'Native Rust ROS2 nodes\nHigh-performance robotics'),
-              _buildRoboticsFeature(Icons.schedule, 'REAL-TIME GUARANTEES', 'Deterministic timing\nNo garbage collection pauses'),
-              _buildRoboticsFeature(Icons.health_and_safety, 'SAFETY CRITICAL', 'Memory safety for\nautonomous systems'),
-              SizedBox(height: 15),
-              Container(
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: lightOrange,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: rustOrange, width: 1),
-                ),
-                child: Text(
-                  'Perfect for drones, autonomous vehicles,\nindustrial automation, and more!',
-                  style: TextStyle(
-                    color: rustBrown,
-                    fontSize: 12,
+                  child: Text(
+                    'Perfect for drones, autonomous vehicles,\nindustrial automation, and more!',
+                    style: TextStyle(color: rustBrown, fontSize: 12),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
                 ),
-              ),
-            ],
-          );
-
-          if (isWide) {
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(flex: 1, child: roboticsCard),
-                SizedBox(width: 20),
-                Expanded(flex: 2, child: featuresList),
               ],
             );
-          } else {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                roboticsCard,
-                SizedBox(height: 20),
-                featuresList,
-              ],
-            );
-          }
-        },
-      ),
-    ],
-  );
-}
+
+            if (isWide) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(flex: 1, child: roboticsCard),
+                  SizedBox(width: 20),
+                  Expanded(flex: 2, child: featuresList),
+                ],
+              );
+            } else {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [roboticsCard, SizedBox(height: 20), featuresList],
+              );
+            }
+          },
+        ),
+      ],
+    );
+  }
 
   Widget _buildWrapUpSlide() {
     return LayoutBuilder(
       builder: (context, constraints) {
         double titleFontSize = constraints.maxWidth * 0.06;
-        
+
         if (constraints.maxWidth < 600) {
           titleFontSize = constraints.maxWidth * 0.08;
         }
-        
+
         return Container(
           padding: EdgeInsets.symmetric(
             horizontal: constraints.maxWidth * 0.08,
@@ -1355,10 +1769,26 @@ Widget _buildWhatIsEmbeddedSlide() {
                       ),
                     ),
                     SizedBox(height: 15),
-                    _buildNextStep(Icons.download, '1.', 'Install Rust & ESP32 toolchain'),
-                    _buildNextStep(Icons.developer_board, '2.', 'Get an ESP32 development board'),
-                    _buildNextStep(Icons.group, '3.', 'Join our Discord/WhatsApp group'),
-                    _buildNextStep(Icons.lightbulb, '4.', 'Start thinking about your project!'),
+                    _buildNextStep(
+                      Icons.download,
+                      '1.',
+                      'Install Rust & ESP32 toolchain',
+                    ),
+                    _buildNextStep(
+                      Icons.developer_board,
+                      '2.',
+                      'Get an ESP32 development board',
+                    ),
+                    _buildNextStep(
+                      Icons.group,
+                      '3.',
+                      'Join our Discord/WhatsApp group',
+                    ),
+                    _buildNextStep(
+                      Icons.lightbulb,
+                      '4.',
+                      'Start thinking about your project!',
+                    ),
                   ],
                 ),
               ),
@@ -1373,7 +1803,7 @@ Widget _buildWhatIsEmbeddedSlide() {
                       color: rustOrange.withOpacity(0.3),
                       blurRadius: 10,
                       spreadRadius: 2,
-                    )
+                    ),
                   ],
                 ),
                 child: Text(
@@ -1393,15 +1823,18 @@ Widget _buildWhatIsEmbeddedSlide() {
   }
 
   // Helper methods for building slide components
-  Widget _buildResponsiveSlideTemplate({required String title, required List<Widget> children}) {
+  Widget _buildResponsiveSlideTemplate({
+    required String title,
+    required List<Widget> children,
+  }) {
     return LayoutBuilder(
       builder: (context, constraints) {
         double titleFontSize = constraints.maxWidth * 0.045;
-        
+
         if (constraints.maxWidth < 600) {
           titleFontSize = constraints.maxWidth * 0.06;
         }
-        
+
         return Container(
           padding: EdgeInsets.symmetric(
             horizontal: constraints.maxWidth * 0.08,
@@ -1484,10 +1917,7 @@ Widget _buildWhatIsEmbeddedSlide() {
           SizedBox(height: 5),
           Text(
             specs,
-            style: TextStyle(
-              color: rustBrown.withOpacity(0.8),
-              fontSize: 11,
-            ),
+            style: TextStyle(color: rustBrown.withOpacity(0.8), fontSize: 11),
             textAlign: TextAlign.center,
           ),
         ],
@@ -1495,7 +1925,13 @@ Widget _buildWhatIsEmbeddedSlide() {
     );
   }
 
-  Widget _buildProblemCard(String title, String description, Color bgColor, Color borderColor, IconData icon) {
+  Widget _buildProblemCard(
+    String title,
+    String description,
+    Color bgColor,
+    Color borderColor,
+    IconData icon,
+  ) {
     return Container(
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -1523,10 +1959,7 @@ Widget _buildWhatIsEmbeddedSlide() {
           SizedBox(height: 8),
           Text(
             description,
-            style: TextStyle(
-              color: borderColor.withOpacity(0.8),
-              fontSize: 13,
-            ),
+            style: TextStyle(color: borderColor.withOpacity(0.8), fontSize: 13),
           ),
         ],
       ),
@@ -1544,7 +1977,7 @@ Widget _buildWhatIsEmbeddedSlide() {
             color: rustOrange.withOpacity(0.3),
             blurRadius: 5,
             spreadRadius: 1,
-          )
+          ),
         ],
       ),
       child: Row(
@@ -1565,7 +1998,13 @@ Widget _buildWhatIsEmbeddedSlide() {
     );
   }
 
-  Widget _buildWhyCard(IconData icon, String title, String description, Color bgColor, Color borderColor) {
+  Widget _buildWhyCard(
+    IconData icon,
+    String title,
+    String description,
+    Color bgColor,
+    Color borderColor,
+  ) {
     return Container(
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -1593,10 +2032,7 @@ Widget _buildWhatIsEmbeddedSlide() {
           SizedBox(height: 8),
           Text(
             description,
-            style: TextStyle(
-              color: borderColor.withOpacity(0.8),
-              fontSize: 12,
-            ),
+            style: TextStyle(color: borderColor.withOpacity(0.8), fontSize: 12),
           ),
         ],
       ),
@@ -1625,10 +2061,7 @@ Widget _buildWhatIsEmbeddedSlide() {
                 ),
                 Text(
                   description,
-                  style: TextStyle(
-                    color: darkGray,
-                    fontSize: 13,
-                  ),
+                  style: TextStyle(color: darkGray, fontSize: 13),
                 ),
               ],
             ),
@@ -1638,7 +2071,12 @@ Widget _buildWhatIsEmbeddedSlide() {
     );
   }
 
-  Widget _buildPerformanceBar(String language, double performance, Color color, IconData icon) {
+  Widget _buildPerformanceBar(
+    String language,
+    double performance,
+    Color color,
+    IconData icon,
+  ) {
     return Column(
       children: [
         Row(
@@ -1714,7 +2152,12 @@ Widget _buildWhatIsEmbeddedSlide() {
     );
   }
 
-  Widget _buildEcosystemCard(String title, String subtitle, Color color, IconData icon) {
+  Widget _buildEcosystemCard(
+    String title,
+    String subtitle,
+    Color color,
+    IconData icon,
+  ) {
     return Container(
       width: 130,
       padding: EdgeInsets.all(12),
@@ -1740,10 +2183,7 @@ Widget _buildWhatIsEmbeddedSlide() {
           SizedBox(height: 5),
           Text(
             subtitle,
-            style: TextStyle(
-              color: color.withOpacity(0.8),
-              fontSize: 10,
-            ),
+            style: TextStyle(color: color.withOpacity(0.8), fontSize: 10),
             textAlign: TextAlign.center,
           ),
         ],
@@ -1773,10 +2213,7 @@ Widget _buildWhatIsEmbeddedSlide() {
                 ),
                 Text(
                   description,
-                  style: TextStyle(
-                    color: darkGray,
-                    fontSize: 12,
-                  ),
+                  style: TextStyle(color: darkGray, fontSize: 12),
                 ),
               ],
             ),
@@ -1808,10 +2245,7 @@ Widget _buildWhatIsEmbeddedSlide() {
                 ),
                 Text(
                   description,
-                  style: TextStyle(
-                    color: darkGray,
-                    fontSize: 11,
-                  ),
+                  style: TextStyle(color: darkGray, fontSize: 11),
                 ),
               ],
             ),
@@ -1821,7 +2255,13 @@ Widget _buildWhatIsEmbeddedSlide() {
     );
   }
 
-  Widget _buildTechCard(String title, String subtitle, String description, Color color, IconData icon) {
+  Widget _buildTechCard(
+    String title,
+    String subtitle,
+    String description,
+    Color color,
+    IconData icon,
+  ) {
     return Container(
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -1857,13 +2297,7 @@ Widget _buildWhatIsEmbeddedSlide() {
             ),
           ),
           SizedBox(height: 8),
-          Text(
-            description,
-            style: TextStyle(
-              color: darkGray,
-              fontSize: 11,
-            ),
-          ),
+          Text(description, style: TextStyle(color: darkGray, fontSize: 11)),
         ],
       ),
     );
@@ -1894,7 +2328,11 @@ Widget _buildWhatIsEmbeddedSlide() {
     );
   }
 
-  Widget _buildRoboticsFeature(IconData icon, String title, String description) {
+  Widget _buildRoboticsFeature(
+    IconData icon,
+    String title,
+    String description,
+  ) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 6),
       child: Row(
@@ -1916,10 +2354,7 @@ Widget _buildWhatIsEmbeddedSlide() {
                 ),
                 Text(
                   description,
-                  style: TextStyle(
-                    color: darkGray,
-                    fontSize: 11,
-                  ),
+                  style: TextStyle(color: darkGray, fontSize: 11),
                 ),
               ],
             ),
@@ -1998,7 +2433,7 @@ Widget _buildWhatIsEmbeddedSlide() {
                     color: Colors.black.withOpacity(0.1),
                     blurRadius: 5,
                     spreadRadius: 1,
-                  )
+                  ),
                 ],
               ),
               child: Icon(
@@ -2021,19 +2456,23 @@ Widget _buildWhatIsEmbeddedSlide() {
             child: Container(
               padding: EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: _currentSlide < _totalSlides - 1 ? rustOrange : mediumGray,
+                color: _currentSlide < _totalSlides - 1
+                    ? rustOrange
+                    : mediumGray,
                 borderRadius: BorderRadius.circular(25),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.1),
                     blurRadius: 5,
                     spreadRadius: 1,
-                  )
+                  ),
                 ],
               ),
               child: Icon(
                 Icons.arrow_forward_ios,
-                color: _currentSlide < _totalSlides - 1 ? Colors.white : Colors.grey[600],
+                color: _currentSlide < _totalSlides - 1
+                    ? Colors.white
+                    : Colors.grey[600],
                 size: 20,
               ),
             ),
@@ -2066,831 +2505,861 @@ Widget _buildWhatIsEmbeddedSlide() {
   }
 
   Widget _buildSetupGuideSlide() {
-  return _buildResponsiveSlideTemplate(
-    title: 'WORKSHOP SETUP GUIDE',
-    children: [
-      LayoutBuilder(
-        builder: (context, constraints) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // VS Code Installation
-              _buildSetupStep(
-                Icons.code,
-                '1. Install VS Code',
-                'Download from:',
-                'https://code.visualstudio.com/',
-                rustOrange,
-                'https://code.visualstudio.com/',
-              ),
-              SizedBox(height: 20),
-              
-              // Rust Installation
-              _buildSetupStep(
-                Icons.download,
-                '2. Install Rust (via rustup)',
-                'Get it from:',
-                'https://www.rust-lang.org/tools/install',
-                Color(0xFF2196F3),
-                'https://www.rust-lang.org/tools/install',
-              ),
-              SizedBox(height: 20),
-              
-              // Learning Resources
-              Column(
-                children: [
-                  _buildSetupStep(
-                    Icons.school,
-                    '3. Learn Rust Basics',
-                    'Watch: 100 Seconds of Rust',
-                    'https://www.youtube.com/watch?v=5C_HPTJg5ek',
-                    Color(0xFF4CAF50),
-                    'https://www.youtube.com/watch?v=5C_HPTJg5ek',
-                  ),
-                  SizedBox(height: 8),
-                  _buildSetupStep(
-                    Icons.video_library,
-                    '',
-                    'Watch: Rust Installation Walkthrough',
-                    'https://www.youtube.com/watch?v=bc18e5nnChE',
-                    Color(0xFF4CAF50),
-                    'https://www.youtube.com/watch?v=bc18e5nnChE',
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
-              
-              // Workshop Preparation
-              Container(
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: lightOrange,
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(color: rustOrange, width: 2),
+    return _buildResponsiveSlideTemplate(
+      title: 'WORKSHOP SETUP GUIDE',
+      children: [
+        LayoutBuilder(
+          builder: (context, constraints) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // VS Code Installation
+                _buildSetupStep(
+                  Icons.code,
+                  '1. Install VS Code',
+                  'Download from:',
+                  'https://code.visualstudio.com/',
+                  rustOrange,
+                  'https://code.visualstudio.com/',
                 ),
-                child: Column(
+                SizedBox(height: 20),
+
+                // Rust Installation
+                _buildSetupStep(
+                  Icons.download,
+                  '2. Install Rust (via rustup)',
+                  'Get it from:',
+                  'https://www.rust-lang.org/tools/install',
+                  Color(0xFF2196F3),
+                  'https://www.rust-lang.org/tools/install',
+                ),
+                SizedBox(height: 20),
+
+                // Learning Resources
+                Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.checklist, color: rustOrange),
-                        SizedBox(width: 8),
-                        Text(
-                          'WORKSHOP PREPARATION',
-                          style: TextStyle(
-                            color: rustOrange,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
+                    _buildSetupStep(
+                      Icons.school,
+                      '3. Learn Rust Basics',
+                      'Watch: 100 Seconds of Rust',
+                      'https://www.youtube.com/watch?v=5C_HPTJg5ek',
+                      Color(0xFF4CAF50),
+                      'https://www.youtube.com/watch?v=5C_HPTJg5ek',
                     ),
-                    SizedBox(height: 12),
-                    _buildPreparationItem('VS Code installed and working'),
-                    _buildPreparationItem('Rust verified with rustc --version'),
-                    _buildPreparationItem('Rust Analyzer extension installed'),
-                    _buildPreparationItem('Bring laptop charger!'),
+                    SizedBox(height: 8),
+                    _buildSetupStep(
+                      Icons.video_library,
+                      '',
+                      'Watch: Rust Installation Walkthrough',
+                      'https://www.youtube.com/watch?v=bc18e5nnChE',
+                      Color(0xFF4CAF50),
+                      'https://www.youtube.com/watch?v=bc18e5nnChE',
+                    ),
                   ],
                 ),
-              ),
-              SizedBox(height: 20),
-              
-              // Ready message
-              Container(
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Color(0xFFE8F5E8),
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(color: Color(0xFF4CAF50), width: 2),
-                ),
-                child: Text(
-                  '✅ Once complete, you\'ll be ready to write, compile, and run Rust on embedded boards!',
-                  style: TextStyle(
-                    color: Color(0xFF2E7D32),
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ],
-          );
-        },
-      ),
-    ],
-  );
-}
+                SizedBox(height: 20),
 
-// Helper method for setup steps with clickable links
-Widget _buildSetupStep(IconData icon, String title, String description, String urlText, Color color, String url) {
-  return Container(
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: color.withOpacity(0.1),
-      borderRadius: BorderRadius.circular(15),
-      border: Border.all(color: color, width: 2),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (title.isNotEmpty)
-          Row(
-            children: [
-              Icon(icon, color: color, size: 24),
-              SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  title,
-                  style: TextStyle(
-                    color: color,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+                // Workshop Preparation
+                Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: lightOrange,
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(color: rustOrange, width: 2),
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.checklist, color: rustOrange),
+                          SizedBox(width: 8),
+                          Text(
+                            'WORKSHOP PREPARATION',
+                            style: TextStyle(
+                              color: rustOrange,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 12),
+                      _buildPreparationItem('VS Code installed and working'),
+                      _buildPreparationItem(
+                        'Rust verified with rustc --version',
+                      ),
+                      _buildPreparationItem(
+                        'Rust Analyzer extension installed',
+                      ),
+                      _buildPreparationItem('Bring laptop charger!'),
+                    ],
                   ),
                 ),
-              ),
-            ],
-          ),
-        if (title.isNotEmpty) SizedBox(height: 8),
-        Text(
-          description,
-          style: TextStyle(
-            color: darkGray,
-            fontSize: 12,
-          ),
-        ),
-        SizedBox(height: 4),
-        GestureDetector(
-          onTap: () async {
-            if (await canLaunch(url)) {
-              await launch(url);
-            } else {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Could not launch $url'),
-                  backgroundColor: Colors.red,
+                SizedBox(height: 20),
+
+                // Ready message
+                Container(
+                  padding: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Color(0xFFE8F5E8),
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(color: Color(0xFF4CAF50), width: 2),
+                  ),
+                  child: Text(
+                    '✅ Once complete, you\'ll be ready to write, compile, and run Rust on embedded boards!',
+                    style: TextStyle(
+                      color: Color(0xFF2E7D32),
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
+              ],
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  // Helper method for setup steps with clickable links
+  Widget _buildSetupStep(
+    IconData icon,
+    String title,
+    String description,
+    String urlText,
+    Color color,
+    String url,
+  ) {
+    return Container(
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(15),
+        border: Border.all(color: color, width: 2),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (title.isNotEmpty)
+            Row(
+              children: [
+                Icon(icon, color: color, size: 24),
+                SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      color: color,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          if (title.isNotEmpty) SizedBox(height: 8),
+          Text(description, style: TextStyle(color: darkGray, fontSize: 12)),
+          SizedBox(height: 4),
+          GestureDetector(
+            onTap: () async {
+              if (await canLaunch(url)) {
+                await launch(url);
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Could not launch $url'),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+              }
+            },
+            child: Text(
+              urlText,
+              style: TextStyle(
+                color: Colors.blue,
+                fontSize: 12,
+                decoration: TextDecoration.underline,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Helper method for preparation items
+  Widget _buildPreparationItem(String text) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(Icons.circle, size: 8, color: rustOrange),
+          SizedBox(width: 8),
+          Expanded(
+            child: Text(text, style: TextStyle(color: darkGray, fontSize: 12)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRustCheatSheetSlide() {
+    return _buildResponsiveSlideTemplate(
+      title: 'RUST CHEAT SHEET',
+      children: [
+        LayoutBuilder(
+          builder: (context, constraints) {
+            bool isWide = constraints.maxWidth > 1000;
+
+            if (isWide) {
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Left Column
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildCheatSheetSection('VARIABLES', [
+                          'let x = 5;           // immutable',
+                          'let mut y = 10;      // mutable',
+                          'const PI: f64 = 3.14; // constant',
+                        ]),
+                        SizedBox(height: 12),
+                        _buildCheatSheetSection('SCALAR TYPES', [
+                          'let age: i32 = 25;     // integers - i8, i16, i32, i64, i128, u8, ..',
+                          'let pi: f64 = 3.14159; // floats - f32, f64',
+                          'let active: bool = true; // boolean - bool',
+                          'let letter: char = \'A\'; // character - char',
+                        ]),
+                        SizedBox(height: 12),
+                        _buildCheatSheetSection('COMPOUND TYPES', [
+                          '// Tuples',
+                          'let point: (i32, i32) = (10, 20);',
+                          'let x = point.0; // access by index',
+                          '',
+                          '// Arrays',
+                          'let numbers: [i32; 3] = [1, 2, 3];',
+                          'let first = numbers[0]; // also accessed by index',
+                        ]),
+                        SizedBox(height: 12),
+                        _buildCheatSheetSection('CONTROL FLOW', [
+                          '// If statements',
+                          'if x > 5 {',
+                          '    println!("Greater than 5");',
+                          '} else if x == 5 {',
+                          '    println!("Equals 5");',
+                          '} else {',
+                          '    println!("Less than 5");',
+                          '}',
+                          '',
+                          '// If as expression',
+                          'let result = if x > 0 { "positive" } else { "negative" };',
+                        ]),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 20),
+                  // Middle Column
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildCheatSheetSection('LOOPS', [
+                          '// For loops',
+                          'for i in 0..5 {           // 0 to 4',
+                          '    println!("{}", i);',
+                          '}',
+                          'for item in vec![1, 2, 3] {',
+                          '    println!("{}", item);',
+                          '}',
+                          '',
+                          '// While loops',
+                          'let mut count = 0;',
+                          'while count < 3 {',
+                          '    println!("{}", count);',
+                          '    count += 1;',
+                          '}',
+                        ]),
+                        SizedBox(height: 12),
+                        _buildCheatSheetSection('INFINITE LOOPS & CONTROL', [
+                          '// Infinite loop',
+                          'loop {',
+                          '    println!("Forever!");',
+                          '    break; // Exit loop',
+                          '}',
+                          '',
+                          '// Loop with return value',
+                          'let result = loop {',
+                          '    counter += 1;',
+                          '    if counter == 10 {',
+                          '        break counter * 2;',
+                          '    }',
+                          '};',
+                        ]),
+                        SizedBox(height: 12),
+                        _buildCheatSheetSection('FUNCTIONS', [
+                          '// Basic function',
+                          'fn greet() {',
+                          '    println!("Hello!");',
+                          '}',
+                          '',
+                          '// Function with parameters',
+                          'fn add(x: i32, y: i32) -> i32 {',
+                          '    x + y  // no semicolon = return',
+                          '}',
+                          '',
+                          '// Early return',
+                          'fn divide(x: f64, y: f64) -> f64 {',
+                          '    if y == 0.0 { return 0.0; }',
+                          '    x / y',
+                          '}',
+                        ]),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 20),
+                  // Right Column
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildCheatSheetSection('STRUCTS & ENUMS', [
+                          '// Struct',
+                          'struct Point {',
+                          '    x: i32,',
+                          '    y: i32,',
+                          '}',
+                          '',
+                          '// Enum',
+                          'enum Direction {',
+                          '    Up,',
+                          '    Down,',
+                          '    Left(i32), // with data',
+                          '    Right(i32),',
+                          '}',
+                        ]),
+                        SizedBox(height: 12),
+                        _buildCheatSheetSection('METHODS', [
+                          'impl Point {',
+                          '    fn new(x: i32, y: i32) -> Point {',
+                          '        Point { x, y }',
+                          '    }',
+                          '    ',
+                          '    fn distance(&self) -> f64 {',
+                          '        ((self.x.pow(2) + self.y.pow(2))',
+                          '         as f64).sqrt()',
+                          '    }',
+                          '}',
+                        ]),
+                        SizedBox(height: 12),
+                        _buildCheatSheetSection('MATCH EXPRESSIONS', [
+                          'match direction {',
+                          '    Direction::Up => println!("Going up!"),',
+                          '    Direction::Down => println!("Going down!"),',
+                          '    Direction::Left(steps) => {',
+                          '        println!("Left {} steps", steps);',
+                          '    }',
+                          '    Direction::Right(steps) => {',
+                          '        println!("Right {} steps", steps);',
+                          '    }',
+                          '}',
+                        ]),
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            } else {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildCheatSheetSection('VARIABLES', [
+                    'let x = 5;           // immutable',
+                    'let mut y = 10;      // mutable',
+                    'const PI: f64 = 3.14; // constant',
+                  ]),
+                  SizedBox(height: 10),
+                  _buildCheatSheetSection('SCALAR TYPES', [
+                    'let age: i32 = 25;     // integers',
+                    'let pi: f64 = 3.14159; // floats',
+                    'let active: bool = true; // boolean',
+                    'let letter: char = \'A\'; // character',
+                  ]),
+                  SizedBox(height: 10),
+                  _buildCheatSheetSection('CONTROL FLOW', [
+                    'if x > 5 { println!("Greater"); }',
+                    'let result = if x > 0 { "pos" } else { "neg" };',
+                  ]),
+                  SizedBox(height: 10),
+                  _buildCheatSheetSection('LOOPS', [
+                    'for i in 0..5 { println!("{}", i); }',
+                    'while count < 3 { count += 1; }',
+                    'loop { break; } // infinite loop',
+                  ]),
+                  SizedBox(height: 10),
+                  _buildCheatSheetSection('FUNCTIONS', [
+                    'fn greet() { println!("Hello!"); }',
+                    'fn add(x: i32, y: i32) -> i32 { x + y }',
+                  ]),
+                  SizedBox(height: 10),
+                  _buildCheatSheetSection('STRUCTS & ENUMS', [
+                    'struct Sensor { pin: u8, value: u16 }',
+                    'enum SystemMode { Sleep, Active, Emergency(u8) }',
+                  ]),
+                ],
               );
             }
           },
-          child: Text(
-            urlText,
-            style: TextStyle(
-              color: Colors.blue,
-              fontSize: 12,
-              decoration: TextDecoration.underline,
+        ),
+        SizedBox(height: 20),
+        // Ownership Rules - Always at bottom
+        Container(
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFFFFE5E5), Color(0xFFFFCCCC)],
             ),
+            borderRadius: BorderRadius.circular(15),
+            border: Border.all(color: Color(0xFFD32F2F), width: 2),
+          ),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.security, color: Color(0xFFD32F2F), size: 20),
+                  SizedBox(width: 8),
+                  Text(
+                    'OWNERSHIP RULES (THE GOLDEN RULES)',
+                    style: TextStyle(
+                      color: Color(0xFFD32F2F),
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 12),
+              _buildOwnershipRule('1.', 'Each value has exactly one owner'),
+              _buildOwnershipRule(
+                '2.',
+                'Only one owner at a time (prevents double-free)',
+              ),
+              _buildOwnershipRule(
+                '3.',
+                'When owner goes out of scope, value is dropped',
+              ),
+              SizedBox(height: 8),
+              Text(
+                'These rules eliminate memory leaks and data races at compile time!',
+                style: TextStyle(
+                  color: Color(0xFFD32F2F),
+                  fontSize: 12,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.w600,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
           ),
         ),
       ],
-    ),
-  );
-}
+    );
+  }
 
-// Helper method for preparation items
-Widget _buildPreparationItem(String text) {
-  return Padding(
-    padding: EdgeInsets.symmetric(vertical: 4),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Icon(Icons.circle, size: 8, color: rustOrange),
-        SizedBox(width: 8),
-        Expanded(
-          child: Text(
-            text,
-            style: TextStyle(
-              color: darkGray,
-              fontSize: 12,
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-  Widget _buildRustCheatSheetSlide() {
-  return _buildResponsiveSlideTemplate(
-    title: 'RUST CHEAT SHEET',
-    children: [
-      LayoutBuilder(
-        builder: (context, constraints) {
-          bool isWide = constraints.maxWidth > 1000;
-          
-          if (isWide) {
-            return Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Left Column
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildCheatSheetSection('VARIABLES', [
-                        'let x = 5;           // immutable',
-                        'let mut y = 10;      // mutable',
-                        'const PI: f64 = 3.14; // constant',
-                      ]),
-                      SizedBox(height: 12),
-                      _buildCheatSheetSection('SCALAR TYPES', [
-                        'let age: i32 = 25;     // integers - i8, i16, i32, i64, i128, u8, ..',
-                        'let pi: f64 = 3.14159; // floats - f32, f64',
-                        'let active: bool = true; // boolean - bool',
-                        'let letter: char = \'A\'; // character - char',
-                      ]),
-                      SizedBox(height: 12),
-                      _buildCheatSheetSection('COMPOUND TYPES', [
-                        '// Tuples',
-                        'let point: (i32, i32) = (10, 20);',
-                        'let x = point.0; // access by index',
-                        '',
-                        '// Arrays',
-                        'let numbers: [i32; 3] = [1, 2, 3];',
-                        'let first = numbers[0]; // also accessed by index',
-                      ]),
-                      SizedBox(height: 12),
-                      _buildCheatSheetSection('CONTROL FLOW', [
-                        '// If statements',
-                        'if x > 5 {',
-                        '    println!("Greater than 5");',
-                        '} else if x == 5 {',
-                        '    println!("Equals 5");',
-                        '} else {',
-                        '    println!("Less than 5");',
-                        '}',
-                        '',
-                        '// If as expression',
-                        'let result = if x > 0 { "positive" } else { "negative" };',
-                      ]),
-                    ],
-                  ),
-                ),
-                SizedBox(width: 20),
-                // Middle Column
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildCheatSheetSection('LOOPS', [
-                        '// For loops',
-                        'for i in 0..5 {           // 0 to 4',
-                        '    println!("{}", i);',
-                        '}',
-                        'for item in vec![1, 2, 3] {',
-                        '    println!("{}", item);',
-                        '}',
-                        '',
-                        '// While loops',
-                        'let mut count = 0;',
-                        'while count < 3 {',
-                        '    println!("{}", count);',
-                        '    count += 1;',
-                        '}',
-                      ]),
-                      SizedBox(height: 12),
-                      _buildCheatSheetSection('INFINITE LOOPS & CONTROL', [
-                        '// Infinite loop',
-                        'loop {',
-                        '    println!("Forever!");',
-                        '    break; // Exit loop',
-                        '}',
-                        '',
-                        '// Loop with return value',
-                        'let result = loop {',
-                        '    counter += 1;',
-                        '    if counter == 10 {',
-                        '        break counter * 2;',
-                        '    }',
-                        '};',
-                      ]),
-                      SizedBox(height: 12),
-                      _buildCheatSheetSection('FUNCTIONS', [
-                        '// Basic function',
-                        'fn greet() {',
-                        '    println!("Hello!");',
-                        '}',
-                        '',
-                        '// Function with parameters',
-                        'fn add(x: i32, y: i32) -> i32 {',
-                        '    x + y  // no semicolon = return',
-                        '}',
-                        '',
-                        '// Early return',
-                        'fn divide(x: f64, y: f64) -> f64 {',
-                        '    if y == 0.0 { return 0.0; }',
-                        '    x / y',
-                        '}',
-                      ]),
-                    ],
-                  ),
-                ),
-                SizedBox(width: 20),
-                // Right Column
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildCheatSheetSection('STRUCTS & ENUMS', [
-                        '// Struct',
-                        'struct Point {',
-                        '    x: i32,',
-                        '    y: i32,',
-                        '}',
-                        '',
-                        '// Enum',
-                        'enum Direction {',
-                        '    Up,',
-                        '    Down,',
-                        '    Left(i32), // with data',
-                        '    Right(i32),',
-                        '}',
-                      ]),
-                      SizedBox(height: 12),
-                      _buildCheatSheetSection('METHODS', [
-                        'impl Point {',
-                        '    fn new(x: i32, y: i32) -> Point {',
-                        '        Point { x, y }',
-                        '    }',
-                        '    ',
-                        '    fn distance(&self) -> f64 {',
-                        '        ((self.x.pow(2) + self.y.pow(2))',
-                        '         as f64).sqrt()',
-                        '    }',
-                        '}',
-                      ]),
-                      SizedBox(height: 12),
-                      _buildCheatSheetSection('MATCH EXPRESSIONS', [
-                        'match direction {',
-                        '    Direction::Up => println!("Going up!"),',
-                        '    Direction::Down => println!("Going down!"),',
-                        '    Direction::Left(steps) => {',
-                        '        println!("Left {} steps", steps);',
-                        '    }',
-                        '    Direction::Right(steps) => {',
-                        '        println!("Right {} steps", steps);',
-                        '    }',
-                        '}',
-                      ]),
-                    ],
-                  ),
-                ),
-              ],
-            );
-          } else {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildCheatSheetSection('VARIABLES', [
-                  'let x = 5;           // immutable',
-                  'let mut y = 10;      // mutable',
-                  'const PI: f64 = 3.14; // constant',
-                ]),
-                SizedBox(height: 10),
-                _buildCheatSheetSection('SCALAR TYPES', [
-                  'let age: i32 = 25;     // integers',
-                  'let pi: f64 = 3.14159; // floats',
-                  'let active: bool = true; // boolean',
-                  'let letter: char = \'A\'; // character',
-                ]),
-                SizedBox(height: 10),
-                _buildCheatSheetSection('CONTROL FLOW', [
-                  'if x > 5 { println!("Greater"); }',
-                  'let result = if x > 0 { "pos" } else { "neg" };',
-                ]),
-                SizedBox(height: 10),
-                _buildCheatSheetSection('LOOPS', [
-                  'for i in 0..5 { println!("{}", i); }',
-                  'while count < 3 { count += 1; }',
-                  'loop { break; } // infinite loop',
-                ]),
-                SizedBox(height: 10),
-                _buildCheatSheetSection('FUNCTIONS', [
-                  'fn greet() { println!("Hello!"); }',
-                  'fn add(x: i32, y: i32) -> i32 { x + y }',
-                ]),
-                SizedBox(height: 10),
-                _buildCheatSheetSection('STRUCTS & ENUMS', [
-                  'struct Sensor { pin: u8, value: u16 }',
-                  'enum SystemMode { Sleep, Active, Emergency(u8) }',
-                ]),
-              ],
-            );
-          }
-        },
+  // Helper method for cheat sheet sections
+  Widget _buildCheatSheetSection(String title, List<String> codeLines) {
+    return Container(
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: lightGray,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: rustOrange, width: 1),
       ),
-      SizedBox(height: 20),
-      // Ownership Rules - Always at bottom
-      Container(
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFFFFE5E5), Color(0xFFFFCCCC)],
-          ),
-          borderRadius: BorderRadius.circular(15),
-          border: Border.all(color: Color(0xFFD32F2F), width: 2),
-        ),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.security, color: Color(0xFFD32F2F), size: 20),
-                SizedBox(width: 8),
-                Text(
-                  'OWNERSHIP RULES (THE GOLDEN RULES)',
-                  style: TextStyle(
-                    color: Color(0xFFD32F2F),
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              color: rustOrange,
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
             ),
-            SizedBox(height: 12),
-            _buildOwnershipRule('1.', 'Each value has exactly one owner'),
-            _buildOwnershipRule('2.', 'Only one owner at a time (prevents double-free)'),
-            _buildOwnershipRule('3.', 'When owner goes out of scope, value is dropped'),
-            SizedBox(height: 8),
-            Text(
-              'These rules eliminate memory leaks and data races at compile time!',
+          ),
+          SizedBox(height: 8),
+          Container(
+            padding: EdgeInsets.all(8),
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: darkGray,
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: codeLines
+                  .map(
+                    (line) => Padding(
+                      padding: EdgeInsets.symmetric(vertical: 1),
+                      child: Text(
+                        line,
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          color: line.startsWith('//')
+                              ? Color(0xFF81C784)
+                              : line.contains('let') || line.contains('const')
+                              ? Color(0xFF4FC3F7)
+                              : line.contains('struct') ||
+                                    line.contains('enum') ||
+                                    line.contains('impl')
+                              ? Color(0xFFFFB74D)
+                              : line.contains('fn ')
+                              ? Color(0xFFBA68C8)
+                              : line.contains('if') ||
+                                    line.contains('for') ||
+                                    line.contains('while') ||
+                                    line.contains('loop') ||
+                                    line.contains('match')
+                              ? Color(0xFFFF8A65)
+                              : Color(0xFFE0E0E0),
+                          fontSize: 9,
+                        ),
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Helper method for ownership rules
+  Widget _buildOwnershipRule(String number, String rule) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 2),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 16,
+            height: 16,
+            decoration: BoxDecoration(
+              color: Color(0xFFD32F2F),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Center(
+              child: Text(
+                number,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 8,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              rule,
               style: TextStyle(
                 color: Color(0xFFD32F2F),
                 fontSize: 12,
-                fontStyle: FontStyle.italic,
                 fontWeight: FontWeight.w600,
               ),
-              textAlign: TextAlign.center,
             ),
-          ],
-        ),
-      ),
-    ],
-  );
-}
-
-// Helper method for cheat sheet sections
-Widget _buildCheatSheetSection(String title, List<String> codeLines) {
-  return Container(
-    padding: EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: lightGray,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: rustOrange, width: 1),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: TextStyle(
-            color: rustOrange,
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildEmbeddedRustCheatSheetSlide() {
+    return _buildResponsiveSlideTemplate(
+      title: 'EMBEDDED RUST CHEATSHEET',
+      children: [
+        LayoutBuilder(
+          builder: (context, constraints) {
+            bool isWide = constraints.maxWidth > 1000;
+
+            if (isWide) {
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Left Column
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildCheatSheetSection(
+                          'VARIABLES (Like Hardware Registers)',
+                          [
+                            'let led_state = false;        // LED is OFF (immutable)',
+                            'let mut sensor_reading = 0;   // Sensor value can change',
+                            'const MAX_VOLTAGE: f32 = 3.3; // Board voltage (constant)',
+                          ],
+                        ),
+                        SizedBox(height: 12),
+                        _buildCheatSheetSection('DATA TYPES (Hardware Values)', [
+                          'let pin_number: u8 = 13;      // Pin numbers (0-255)',
+                          'let temperature: f32 = 25.6;  // Sensor readings',
+                          'let button_pressed: bool = true; // Digital input',
+                          'let status_char: char = \'R\';   // Status indicator',
+                        ]),
+                        SizedBox(height: 12),
+                        _buildCheatSheetSection('COLLECTIONS (Multiple Sensors)', [
+                          '// Multiple pin states',
+                          'let pin_states: (bool, bool, bool) = (true, false, true);',
+                          'let first_pin = pin_states.0;',
+                          '',
+                          '// Sensor readings array',
+                          'let temperatures: [f32; 4] = [20.1, 21.5, 19.8, 22.0];',
+                          'let first_temp = temperatures[0];',
+                        ]),
+                        SizedBox(height: 12),
+                        _buildCheatSheetSection('DECISIONS (Control Logic)', [
+                          '// Check sensor threshold',
+                          'if temperature > 30.0 {',
+                          '    turn_on_fan();',
+                          '} else if temperature < 10.0 {',
+                          '    turn_on_heater();',
+                          '} else {',
+                          '    normal_operation();',
+                          '}',
+                          '',
+                          '// Set LED color based on status',
+                          'let led_color = if battery_low { "red" } else { "green" };',
+                        ]),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 20),
+                  // Middle Column
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildCheatSheetSection('LOOPS (Periodic Tasks)', [
+                          '// Blink LED 5 times',
+                          'for blink_count in 0..5 {',
+                          '    toggle_led();',
+                          '    delay_ms(500);',
+                          '}',
+                          '',
+                          '// Read all sensors',
+                          'for sensor in sensor_array {',
+                          '    let value = read_sensor(sensor);',
+                          '}',
+                          '',
+                          '// Wait for button press',
+                          'while !button_pressed() {',
+                          '    check_other_tasks();',
+                          '}',
+                        ]),
+                        SizedBox(height: 12),
+                        _buildCheatSheetSection('MAIN LOOP (Embedded Heart)', [
+                          '// Main program loop (runs forever)',
+                          'loop {',
+                          '    read_sensors();',
+                          '    process_data();',
+                          '    update_outputs();',
+                          '    delay_ms(100); // 10Hz update rate',
+                          '}',
+                          '',
+                          '// Wait for specific condition',
+                          'let startup_delay = loop {',
+                          '    init_counter += 1;',
+                          '    if system_ready() {',
+                          '        break init_counter * 10;',
+                          '    }',
+                          '};',
+                        ]),
+                        SizedBox(height: 12),
+                        _buildCheatSheetSection('FUNCTIONS (Reusable Code)', [
+                          '// Turn LED on/off',
+                          'fn set_led(pin: u8, state: bool) {',
+                          '    digital_write(pin, state);',
+                          '}',
+                          '',
+                          '// Read temperature and return value',
+                          'fn read_temp_sensor() -> f32 {',
+                          '    let raw = analog_read(TEMP_PIN);',
+                          '    convert_to_celsius(raw)',
+                          '}',
+                          '',
+                          '// Safety check with early return',
+                          'fn check_battery() -> bool {',
+                          '    if voltage < 3.0 { return false; }',
+                          '    voltage > 3.7  // Battery OK',
+                          '}',
+                        ]),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 20),
+                  // Right Column
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildCheatSheetSection('DEVICE STRUCTURES', [
+                          '// Represent a sensor',
+                          'struct TemperatureSensor {',
+                          '    pin: u8,',
+                          '    calibration_offset: f32,',
+                          '}',
+                          '',
+                          '// Different types of devices',
+                          'enum DeviceType {',
+                          '    Led,',
+                          '    Button,',
+                          '    Sensor(u8),     // with pin number',
+                          '    Motor(u8, u8),  // with speed & direction pins',
+                          '}',
+                        ]),
+                        SizedBox(height: 12),
+                        _buildCheatSheetSection('DEVICE METHODS', [
+                          'impl TemperatureSensor {',
+                          '    fn new(pin: u8) -> TemperatureSensor {',
+                          '        TemperatureSensor { ',
+                          '            pin, ',
+                          '            calibration_offset: 0.0 ',
+                          '        }',
+                          '    }',
+                          '    ',
+                          '    fn read_celsius(&self) -> f32 {',
+                          '        let raw = analog_read(self.pin);',
+                          '        raw * 0.1 + self.calibration_offset',
+                          '    }',
+                          '}',
+                        ]),
+                        SizedBox(height: 12),
+                        _buildCheatSheetSection('DEVICE CONTROL (Match)', [
+                          '// Handle different device types',
+                          'match device_type {',
+                          '    DeviceType::Led => {',
+                          '        toggle_led();',
+                          '    }',
+                          '    DeviceType::Button => {',
+                          '        check_button_state();',
+                          '    }',
+                          '    DeviceType::Sensor(pin) => {',
+                          '        read_sensor_on_pin(pin);',
+                          '    }',
+                          '    DeviceType::Motor(speed_pin, dir_pin) => {',
+                          '        control_motor(speed_pin, dir_pin);',
+                          '    }',
+                          '}',
+                        ]),
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            } else {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildCheatSheetSection('VARIABLES (Hardware)', [
+                    'let led_state = false;        // LED OFF',
+                    'let mut sensor_value = 0;     // Can change',
+                    'const MAX_VOLTAGE: f32 = 3.3; // Constant',
+                  ]),
+                  SizedBox(height: 10),
+                  _buildCheatSheetSection('DATA TYPES', [
+                    'let pin: u8 = 13;           // Pin number',
+                    'let temp: f32 = 25.6;       // Temperature',
+                    'let pressed: bool = true;   // Button state',
+                  ]),
+                  SizedBox(height: 10),
+                  _buildCheatSheetSection('CONTROL LOGIC', [
+                    'if temp > 30.0 { turn_on_fan(); }',
+                    'let status = if battery_low { "red" } else { "green" };',
+                  ]),
+                  SizedBox(height: 10),
+                  _buildCheatSheetSection('LOOPS (Tasks)', [
+                    'for i in 0..5 { blink_led(); }      // Blink 5 times',
+                    'while !ready() { wait(); }          // Wait for ready',
+                    'loop { main_task(); delay(100); }   // Main loop',
+                  ]),
+                  SizedBox(height: 10),
+                  _buildCheatSheetSection('FUNCTIONS', [
+                    'fn set_led(pin: u8, on: bool) { ... }',
+                    'fn read_sensor() -> f32 { ... }',
+                  ]),
+                  SizedBox(height: 10),
+                  _buildCheatSheetSection('DEVICES', [
+                    'struct Sensor { pin: u8, offset: f32 }',
+                    'enum Device { Led, Button, Sensor(u8) }',
+                  ]),
+                ],
+              );
+            }
+          },
         ),
-        SizedBox(height: 8),
+        SizedBox(height: 20),
+        // Embedded-focused Ownership Rules
         Container(
-          padding: EdgeInsets.all(8),
-          width: double.infinity,
+          padding: EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: darkGray,
-            borderRadius: BorderRadius.circular(6),
+            gradient: LinearGradient(
+              colors: [Color(0xFFE8F5E8), Color(0xFFD4F1D4)],
+            ),
+            borderRadius: BorderRadius.circular(15),
+            border: Border.all(color: Color(0xFF2E7D32), width: 2),
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: codeLines.map((line) => 
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 1),
-                child: Text(
-                  line,
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    color: line.startsWith('//') ? Color(0xFF81C784) : 
-                           line.contains('let') || line.contains('const') ? Color(0xFF4FC3F7) :
-                           line.contains('struct') || line.contains('enum') || line.contains('impl') ? Color(0xFFFFB74D) :
-                           line.contains('fn ') ? Color(0xFFBA68C8) :
-                           line.contains('if') || line.contains('for') || line.contains('while') || line.contains('loop') || line.contains('match') ? Color(0xFFFF8A65) :
-                           Color(0xFFE0E0E0),
-                    fontSize: 9,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.memory, color: Color(0xFF2E7D32), size: 20),
+                  SizedBox(width: 8),
+                  Text(
+                    'MEMORY SAFETY',
+                    style: TextStyle(
+                      color: Color(0xFF2E7D32),
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
+                ],
+              ),
+              SizedBox(height: 12),
+              _buildOwnershipRule(
+                '1.',
+                'Each sensor/device has one owner (no conflicts)',
+              ),
+              _buildOwnershipRule(
+                '2.',
+                'Only one part of code controls each resource',
+              ),
+              _buildOwnershipRule(
+                '3.',
+                'Memory automatically freed (no memory leaks)',
+              ),
+              SizedBox(height: 8),
+              Text(
+                'Perfect for microcontrollers: No garbage collector, no crashes, predictable timing!',
+                style: TextStyle(
+                  color: Color(0xFF2E7D32),
+                  fontSize: 12,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.w600,
                 ),
-              )
-            ).toList(),
+                textAlign: TextAlign.center,
+              ),
+            ],
           ),
         ),
       ],
-    ),
-  );
-}
-
-// Helper method for ownership rules
-Widget _buildOwnershipRule(String number, String rule) {
-  return Padding(
-    padding: EdgeInsets.symmetric(vertical: 2),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: 16,
-          height: 16,
-          decoration: BoxDecoration(
-            color: Color(0xFFD32F2F),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Center(
-            child: Text(
-              number,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 8,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-        SizedBox(width: 8),
-        Expanded(
-          child: Text(
-            rule,
-            style: TextStyle(
-              color: Color(0xFFD32F2F),
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildEmbeddedRustCheatSheetSlide() {
-  return _buildResponsiveSlideTemplate(
-    title: 'EMBEDDED RUST CHEATSHEET',
-    children: [
-      LayoutBuilder(
-        builder: (context, constraints) {
-          bool isWide = constraints.maxWidth > 1000;
-          
-          if (isWide) {
-            return Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Left Column
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildCheatSheetSection('VARIABLES (Like Hardware Registers)', [
-                        'let led_state = false;        // LED is OFF (immutable)',
-                        'let mut sensor_reading = 0;   // Sensor value can change',
-                        'const MAX_VOLTAGE: f32 = 3.3; // Board voltage (constant)',
-                      ]),
-                      SizedBox(height: 12),
-                      _buildCheatSheetSection('DATA TYPES (Hardware Values)', [
-                        'let pin_number: u8 = 13;      // Pin numbers (0-255)',
-                        'let temperature: f32 = 25.6;  // Sensor readings',
-                        'let button_pressed: bool = true; // Digital input',
-                        'let status_char: char = \'R\';   // Status indicator',
-                      ]),
-                      SizedBox(height: 12),
-                      _buildCheatSheetSection('COLLECTIONS (Multiple Sensors)', [
-                        '// Multiple pin states',
-                        'let pin_states: (bool, bool, bool) = (true, false, true);',
-                        'let first_pin = pin_states.0;',
-                        '',
-                        '// Sensor readings array',
-                        'let temperatures: [f32; 4] = [20.1, 21.5, 19.8, 22.0];',
-                        'let first_temp = temperatures[0];',
-                      ]),
-                      SizedBox(height: 12),
-                      _buildCheatSheetSection('DECISIONS (Control Logic)', [
-                        '// Check sensor threshold',
-                        'if temperature > 30.0 {',
-                        '    turn_on_fan();',
-                        '} else if temperature < 10.0 {',
-                        '    turn_on_heater();',
-                        '} else {',
-                        '    normal_operation();',
-                        '}',
-                        '',
-                        '// Set LED color based on status',
-                        'let led_color = if battery_low { "red" } else { "green" };',
-                      ]),
-                    ],
-                  ),
-                ),
-                SizedBox(width: 20),
-                // Middle Column
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildCheatSheetSection('LOOPS (Periodic Tasks)', [
-                        '// Blink LED 5 times',
-                        'for blink_count in 0..5 {',
-                        '    toggle_led();',
-                        '    delay_ms(500);',
-                        '}',
-                        '',
-                        '// Read all sensors',
-                        'for sensor in sensor_array {',
-                        '    let value = read_sensor(sensor);',
-                        '}',
-                        '',
-                        '// Wait for button press',
-                        'while !button_pressed() {',
-                        '    check_other_tasks();',
-                        '}',
-                      ]),
-                      SizedBox(height: 12),
-                      _buildCheatSheetSection('MAIN LOOP (Embedded Heart)', [
-                        '// Main program loop (runs forever)',
-                        'loop {',
-                        '    read_sensors();',
-                        '    process_data();',
-                        '    update_outputs();',
-                        '    delay_ms(100); // 10Hz update rate',
-                        '}',
-                        '',
-                        '// Wait for specific condition',
-                        'let startup_delay = loop {',
-                        '    init_counter += 1;',
-                        '    if system_ready() {',
-                        '        break init_counter * 10;',
-                        '    }',
-                        '};',
-                      ]),
-                      SizedBox(height: 12),
-                      _buildCheatSheetSection('FUNCTIONS (Reusable Code)', [
-                        '// Turn LED on/off',
-                        'fn set_led(pin: u8, state: bool) {',
-                        '    digital_write(pin, state);',
-                        '}',
-                        '',
-                        '// Read temperature and return value',
-                        'fn read_temp_sensor() -> f32 {',
-                        '    let raw = analog_read(TEMP_PIN);',
-                        '    convert_to_celsius(raw)',
-                        '}',
-                        '',
-                        '// Safety check with early return',
-                        'fn check_battery() -> bool {',
-                        '    if voltage < 3.0 { return false; }',
-                        '    voltage > 3.7  // Battery OK',
-                        '}',
-                      ]),
-                    ],
-                  ),
-                ),
-                SizedBox(width: 20),
-                // Right Column
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildCheatSheetSection('DEVICE STRUCTURES', [
-                        '// Represent a sensor',
-                        'struct TemperatureSensor {',
-                        '    pin: u8,',
-                        '    calibration_offset: f32,',
-                        '}',
-                        '',
-                        '// Different types of devices',
-                        'enum DeviceType {',
-                        '    Led,',
-                        '    Button,',
-                        '    Sensor(u8),     // with pin number',
-                        '    Motor(u8, u8),  // with speed & direction pins',
-                        '}',
-                      ]),
-                      SizedBox(height: 12),
-                      _buildCheatSheetSection('DEVICE METHODS', [
-                        'impl TemperatureSensor {',
-                        '    fn new(pin: u8) -> TemperatureSensor {',
-                        '        TemperatureSensor { ',
-                        '            pin, ',
-                        '            calibration_offset: 0.0 ',
-                        '        }',
-                        '    }',
-                        '    ',
-                        '    fn read_celsius(&self) -> f32 {',
-                        '        let raw = analog_read(self.pin);',
-                        '        raw * 0.1 + self.calibration_offset',
-                        '    }',
-                        '}',
-                      ]),
-                      SizedBox(height: 12),
-                      _buildCheatSheetSection('DEVICE CONTROL (Match)', [
-                        '// Handle different device types',
-                        'match device_type {',
-                        '    DeviceType::Led => {',
-                        '        toggle_led();',
-                        '    }',
-                        '    DeviceType::Button => {',
-                        '        check_button_state();',
-                        '    }',
-                        '    DeviceType::Sensor(pin) => {',
-                        '        read_sensor_on_pin(pin);',
-                        '    }',
-                        '    DeviceType::Motor(speed_pin, dir_pin) => {',
-                        '        control_motor(speed_pin, dir_pin);',
-                        '    }',
-                        '}',
-                      ]),
-                    ],
-                  ),
-                ),
-              ],
-            );
-          } else {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildCheatSheetSection('VARIABLES (Hardware)', [
-                  'let led_state = false;        // LED OFF',
-                  'let mut sensor_value = 0;     // Can change',
-                  'const MAX_VOLTAGE: f32 = 3.3; // Constant',
-                ]),
-                SizedBox(height: 10),
-                _buildCheatSheetSection('DATA TYPES', [
-                  'let pin: u8 = 13;           // Pin number',
-                  'let temp: f32 = 25.6;       // Temperature',
-                  'let pressed: bool = true;   // Button state',
-                ]),
-                SizedBox(height: 10),
-                _buildCheatSheetSection('CONTROL LOGIC', [
-                  'if temp > 30.0 { turn_on_fan(); }',
-                  'let status = if battery_low { "red" } else { "green" };',
-                ]),
-                SizedBox(height: 10),
-                _buildCheatSheetSection('LOOPS (Tasks)', [
-                  'for i in 0..5 { blink_led(); }      // Blink 5 times',
-                  'while !ready() { wait(); }          // Wait for ready',
-                  'loop { main_task(); delay(100); }   // Main loop',
-                ]),
-                SizedBox(height: 10),
-                _buildCheatSheetSection('FUNCTIONS', [
-                  'fn set_led(pin: u8, on: bool) { ... }',
-                  'fn read_sensor() -> f32 { ... }',
-                ]),
-                SizedBox(height: 10),
-                _buildCheatSheetSection('DEVICES', [
-                  'struct Sensor { pin: u8, offset: f32 }',
-                  'enum Device { Led, Button, Sensor(u8) }',
-                ]),
-              ],
-            );
-          }
-        },
-      ),
-      SizedBox(height: 20),
-      // Embedded-focused Ownership Rules
-      Container(
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFFE8F5E8), Color(0xFFD4F1D4)],
-          ),
-          borderRadius: BorderRadius.circular(15),
-          border: Border.all(color: Color(0xFF2E7D32), width: 2),
-        ),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.memory, color: Color(0xFF2E7D32), size: 20),
-                SizedBox(width: 8),
-                Text(
-                  'MEMORY SAFETY',
-                  style: TextStyle(
-                    color: Color(0xFF2E7D32),
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 12),
-            _buildOwnershipRule('1.', 'Each sensor/device has one owner (no conflicts)'),
-            _buildOwnershipRule('2.', 'Only one part of code controls each resource'),
-            _buildOwnershipRule('3.', 'Memory automatically freed (no memory leaks)'),
-            SizedBox(height: 8),
-            Text(
-              'Perfect for microcontrollers: No garbage collector, no crashes, predictable timing!',
-              style: TextStyle(
-                color: Color(0xFF2E7D32),
-                fontSize: 12,
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.w600,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-      ),
-    ],
-  );
-}
+    );
+  }
 }
